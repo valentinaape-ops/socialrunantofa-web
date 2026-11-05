@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Herramientas Social Run</title>
+<meta name="description" content="Calculadora de ritmo y herramientas gratis para runners de Social Run Antofa.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=League+Spartan:wght@700;800&family=Montserrat:wght@800&family=Poppins:wght@400;600;700&display=swap">
+<style>
+  body { margin: 0; }
+  img { max-width: 100%; height: auto; }
+  /* Concepto: la página es un día de corrida. Rosa arriba, el dorsal del próximo social run como pieza central, olas del logo entre secciones y tickets del pase vip al final. */
+  :root {
+    --rosa: #FF77C4;
+    --blanco: #F6F4F5;
+    --fucsia: #E6338F;
+    --fucsia-texto: #C71F76;
+    --ciruela: #3A1830;
+    --rosa-suave: #FFE4F2;
+    --papel: #FFFFFF;
+    --fv-crema: #FDF4DF;
+    --fv-burdeo: #6E1423;
+    --titulo: "League Spartan", "Poppins", system-ui, sans-serif;
+    --texto: "Poppins", system-ui, -apple-system, sans-serif;
+    --mano: "Allura", "Brush Script MT", cursive;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blanco); color: var(--ciruela); font-family: var(--texto); font-size: 16px; line-height: 1.55; }
+  h1, h2, h3, p, ul, ol, figure { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; }
+  h1, h2 { font-family: var(--titulo); font-weight: 800; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
+  h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .ancho { width: 100%; max-width: 1120px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .mano { font-family: var(--mano); font-weight: 400; letter-spacing: 0; }
+  .boton { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 26px; border-radius: 999px; background: var(--fucsia); color: #fff; font-weight: 700; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+  .boton:hover { background: var(--fucsia-texto); transform: translateY(-2px); }
+  .boton.claro { background: #fff; color: var(--fucsia-texto); }
+  .boton.claro:hover { background: var(--rosa-suave); }
+
+  /* Cabecera */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--rosa); }
+  .cabecera { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--rosa); }
+  .cabecera .ancho { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
+  .cabecera img { height: 58px; width: auto; }
+  .cabecera nav ul { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+  .cabecera nav a { color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+  .cabecera nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* Portada */
+  .portada { background: var(--rosa); color: #fff; position: relative; overflow: hidden; }
+  .portada .ancho { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-block: 44px 72px; position: relative; }
+  .portada h1 { font-size: clamp(4rem, 11.5vw, 8.6rem); line-height: .88; }
+  .portada h1 .mano { display: block; font-size: .78em; line-height: 1; margin-top: .06em; }
+  .bajada { margin-top: 26px; max-width: 30ch; font-family: var(--titulo); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.7rem); line-height: 1.2; }
+  .adorno { position: absolute; fill: #fff; }
+  .adorno.a { width: 34px; top: 30px; left: 47%; }
+  .adorno.b { width: 20px; bottom: 70px; left: 52%; }
+  .adorno.c { width: 40px; bottom: 120px; left: 47%; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; }
+
+  /* Dorsal */
+  .dorsal { background: var(--papel); color: var(--ciruela); border-radius: 18px; overflow: hidden; transform: rotate(2.2deg); box-shadow: 0 18px 40px -18px rgba(58, 24, 48, .55); position: relative; min-width: 0; }
+  .dorsal .franja { background: var(--fucsia); color: #fff; padding: 14px 44px; text-align: center; font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
+  .dorsal .cuerpo { padding: 20px 26px 26px; display: grid; gap: 14px; }
+  .dorsal .etiqueta { font-weight: 600; font-size: .9rem; color: var(--fucsia-texto); }
+  .dorsal .numero { font-family: var(--titulo); font-weight: 800; font-size: clamp(5rem, 10vw, 6.6rem); line-height: .86; letter-spacing: -.02em; }
+  .dorsal .numero span { display: block; font-size: .3em; letter-spacing: 0; line-height: 1.1; margin-top: .3em; }
+  .dorsal dl { margin: 0; display: grid; gap: 8px; border-top: 2px dashed var(--rosa); padding-top: 14px; }
+  .dorsal dl div { display: grid; grid-template-columns: 70px 1fr; gap: 10px; align-items: baseline; }
+  .dorsal dt { font-size: .9rem; color: var(--fucsia-texto); font-weight: 600; }
+  .dorsal dd { margin: 0; font-weight: 600; min-width: 0; }
+  .dorsal .boton { width: 100%; }
+  .alfiler { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--rosa); box-shadow: inset 0 2px 2px rgba(58, 24, 48, .35); top: 16px; }
+  .alfiler.i { left: 14px; }
+  .alfiler.d { right: 14px; }
+
+  /* Foto grupal entre olas */
+  .foto { position: relative; background: var(--blanco); }
+  .foto img { width: 100%; height: clamp(300px, 56vw, 640px); object-fit: cover; object-position: center 62%; }
+  .ola { position: absolute; left: 0; width: 100%; height: clamp(44px, 8vw, 110px); display: block; }
+  .ola.arriba { top: -1px; fill: var(--rosa); }
+  .ola.abajo { bottom: -1px; fill: var(--blanco); }
+
+  /* Cómo partimos */
+  .seccion { padding-block: clamp(56px, 9vw, 104px); }
+  .historia .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+  .historia .intro p { max-width: 60ch; }
+  .semana { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 52px; position: relative; }
+  .semana li { display: grid; gap: 6px; align-content: start; min-width: 0; padding-top: 34px; position: relative; }
+  .semana li::before { content: ""; position: absolute; top: 9px; left: 0; right: -20px; border-top: 3px dotted var(--rosa); }
+  .semana li:last-child::before { right: 0; }
+  .semana svg { position: absolute; top: 0; left: 0; width: 22px; height: 22px; fill: var(--fucsia); background: var(--blanco); }
+  .semana b { font-family: var(--titulo); font-weight: 800; font-size: 1.7rem; line-height: 1.05; }
+  .semana li:last-child b { color: var(--fucsia-texto); }
+
+  /* Borde costero */
+  .costa { background: var(--fucsia); color: #fff; }
+  .costa .ancho { padding-block: clamp(52px, 8vw, 92px); display: grid; gap: 20px; }
+  .costa blockquote { margin: 0; font-family: var(--titulo); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.3rem); line-height: 1.06; max-width: 22ch; text-wrap: balance; }
+  .costa p { max-width: 58ch; }
+
+  /* Cómo llegar a tu primera corrida */
+  .pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; counter-reset: paso; }
+  .pasos li { counter-increment: paso; display: grid; grid-template-columns: auto 1fr; gap: 14px; min-width: 0; }
+  .pasos li::before { content: counter(paso); font-family: var(--titulo); font-weight: 800; font-size: 3.4rem; line-height: .9; color: var(--rosa); }
+  .pasos h3 { font-family: var(--titulo); font-weight: 800; font-size: 1.35rem; line-height: 1.15; margin-bottom: 4px; }
+
+  /* Preguntas frecuentes */
+  .preguntas { padding-top: 0; }
+  .preguntas .ancho { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; }
+  .preguntas .lista { display: grid; gap: 10px; min-width: 0; }
+  .preguntas details { background: var(--papel); border-radius: 14px; min-width: 0; }
+  .preguntas summary { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 16px 20px; cursor: pointer; list-style: none; font-family: var(--titulo); font-weight: 800; font-size: 1.25rem; line-height: 1.15; }
+  .preguntas summary::-webkit-details-marker { display: none; }
+  .preguntas summary::after { content: "+"; color: var(--fucsia-texto); font-size: 1.7rem; line-height: 1; transition: transform .18s ease; }
+  .preguntas details[open] summary::after { transform: rotate(45deg); }
+  .preguntas summary:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 2px; border-radius: 14px; }
+  .preguntas details p { padding: 0 20px 18px; max-width: 58ch; }
+
+  /* Calculadora de ritmo */
+  [hidden] { display: none !important; }
+  .calculadora { background: var(--rosa); }
+  .calculadora > .ancho > h2 { color: #fff; }
+  .calculadora > .ancho > p { color: #fff; font-family: var(--titulo); font-weight: 700; font-size: 1.3rem; line-height: 1.2; margin-top: 10px; }
+  .herramientas { display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; align-items: start; margin-top: 30px; }
+  .herramienta { background: var(--papel); border-radius: 18px; padding: 24px; display: grid; gap: 18px; min-width: 0; }
+  .herramienta h3 { margin: 0; font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; line-height: 1.1; }
+  .opciones { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opcion { min-height: 44px; padding: 8px 16px; border: 2px solid var(--rosa); border-radius: 999px; background: var(--papel); color: var(--ciruela); font: inherit; font-weight: 600; cursor: pointer; }
+  .opcion[aria-pressed="true"] { background: var(--fucsia); border-color: var(--fucsia); color: #fff; }
+  .opcion:focus-visible, .calc-campo input:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 2px; }
+  .calc-grupo { display: grid; gap: 8px; min-width: 0; }
+  .calc-grupo > b { font-weight: 600; }
+  .calc-fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .calc-fila.dos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calc-campo { display: grid; gap: 3px; min-width: 0; font-size: .875rem; }
+  .calc-campo input { width: 100%; min-height: 48px; padding: 8px 12px; border: 2px solid var(--rosa); border-radius: 10px; background: var(--papel); color: var(--ciruela); font: inherit; font-size: 1.1rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .resultado { background: var(--rosa-suave); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; }
+  .resultado .titulo { font-weight: 600; color: var(--fucsia-texto); }
+  .resultado .valor { font-family: var(--titulo); font-weight: 800; font-size: clamp(2.6rem, 8vw, 4rem); line-height: 1; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .equivalencias { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
+  .equivalencias dt { font-size: .875rem; }
+  .equivalencias dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .parciales b { display: block; font-weight: 600; margin-bottom: 4px; }
+  .parciales ul { display: flex; flex-wrap: wrap; gap: 6px 18px; font-variant-numeric: tabular-nums; }
+
+  /* Página de herramientas */
+  .entrada { background: var(--rosa); color: #fff; }
+  .entrada .ancho { padding-block: 32px 44px; display: grid; gap: 14px; }
+  .entrada h1 { font-size: clamp(3rem, 9vw, 5.6rem); line-height: .92; }
+  .entrada h1 .mano { display: block; font-size: .9em; line-height: 1.05; }
+  .entrada .bajada { margin-top: 0; }
+  .atajos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .atajos a { padding: 8px 16px; border-radius: 999px; background: #fff; color: var(--fucsia-texto); font-weight: 600; text-decoration: none; }
+  .calculadora { background: var(--rosa-suave); padding-block: 44px 72px; }
+  .herramientas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; margin-top: 0; }
+  .columna { display: grid; gap: 20px; min-width: 0; }
+  .herramienta { scroll-margin-top: 90px; }
+  .tabla-herramienta { overflow-x: auto; }
+  .tabla-herramienta table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .tabla-herramienta th, .tabla-herramienta td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--rosa-suave); }
+  .tabla-herramienta th { font-weight: 600; font-size: .875rem; color: var(--fucsia-texto); }
+  .nota { font-size: .875rem; }
+  footer.cierre .ola { fill: var(--rosa-suave); }
+  @media (max-width: 860px) {
+    .herramientas { grid-template-columns: 1fr; }
+  }
+
+  /* Corridas pasadas */
+  .corridas { background: var(--rosa-suave); }
+  .tarjetas { display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; margin-top: 36px; }
+  .tarjetas figure { display: grid; grid-template-rows: auto 1fr; background: var(--papel); border-radius: 18px; overflow: hidden; min-width: 0; }
+  .tarjetas img { width: 100%; height: 340px; object-fit: cover; }
+  .tarjetas .fantasmas img { object-position: center 70%; }
+  .tarjetas .grupo img { object-position: center; }
+  .tarjetas figcaption { padding: 18px 22px 22px; display: grid; gap: 4px; align-content: start; }
+  .tarjetas b { font-family: var(--titulo); font-weight: 800; font-size: 1.45rem; line-height: 1.1; }
+
+  /* Pase vip */
+  .pase .cabeza { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; }
+  .pase .cabeza .mano { color: var(--fucsia-texto); font-size: 1.28em; }
+  .tickets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .ticket { display: grid; grid-template-columns: auto 1fr; align-items: center; background: var(--rosa); border-radius: 16px; position: relative; min-width: 0; overflow: hidden; transition: transform .18s ease; }
+  .ticket:hover { transform: rotate(-1deg) translateY(-3px); }
+  .ticket .pct { padding: 20px 14px 20px 20px; color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 2.7rem; line-height: 1; border-right: 2px dashed #fff; min-width: 112px; }
+  .ticket .marca { background: var(--papel); align-self: stretch; display: grid; align-content: center; gap: 2px; padding: 14px 16px; min-width: 0; }
+  .ticket .marca b { font-weight: 700; overflow-wrap: anywhere; line-height: 1.25; }
+  .ticket .marca span { font-size: .875rem; }
+  .pendiente { background: #FFF2A8; color: var(--ciruela); border-radius: 4px; padding: 0 5px; font-weight: 600; width: fit-content; }
+
+  .comprar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 32px; }
+  .comprar .precio { font-family: var(--titulo); font-weight: 800; font-size: 1.7rem; line-height: 1.2; }
+  .comprar .precio .pendiente { font-family: var(--texto); font-size: 1rem; }
+
+  /* Empresas */
+  .empresas { background: var(--ciruela); color: #fff; }
+  .empresas .cabeza { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; }
+  .empresas h2 .mano { color: var(--rosa); font-size: 1.2em; }
+  .empresas .datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
+  .empresas .datos li { display: grid; gap: 6px; align-content: start; border-top: 3px dotted var(--rosa); padding-top: 16px; min-width: 0; }
+  .empresas .datos b { font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; line-height: 1.1; color: var(--rosa); }
+  .empresas .aliadas { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; margin-top: 44px; }
+  .empresas .aliadas p b { font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; }
+  .empresas .contacto { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .empresas .correo { font-weight: 600; color: #fff; overflow-wrap: anywhere; user-select: all; }
+
+  .pronto { display: inline-block; margin-top: 32px; padding: 10px 22px; border-radius: 999px; background: var(--fucsia); color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; line-height: 1.2; }
+
+  /* Cierre */
+  .cierre { background: var(--rosa); color: #fff; position: relative; }
+  .cierre .ola { top: -1px; fill: var(--ciruela); transform: scaleY(-1); }
+  .cierre .credito { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-weight: 600; border-top: 2px dotted #fff; padding-top: 16px; }
+  .logo-fv { display: inline-flex; align-items: baseline; padding: 10px 19px 12px 18px; border-radius: 12px; background: var(--fv-crema); color: var(--fv-burdeo); font-family: "Montserrat", var(--texto); font-weight: 800; font-size: 1.3rem; line-height: 1.2; letter-spacing: -.02em; text-decoration: none; }
+  .logo-fv span { font-family: "Great Vibes", var(--mano); font-weight: 400; font-size: 1.65em; line-height: 1.2; letter-spacing: 0; margin-left: 2px; padding-right: .12em; }
+  .cierre .ancho { padding-block: clamp(96px, 13vw, 150px) 40px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; }
+  .cierre h2 { font-size: clamp(2.8rem, 8vw, 5.4rem); line-height: .94; }
+  .cierre .boton { margin-top: 26px; }
+  .cierre .firma { display: grid; gap: 10px; justify-items: start; font-weight: 600; }
+  .cierre .firma img { width: min(230px, 62%); height: auto; }
+
+  @media (max-width: 860px) {
+    .cabecera img { height: 50px; }
+    .cabecera { position: static; }
+    .cabecera .ancho { flex-wrap: wrap; gap: 6px 16px; }
+    .cabecera nav a { font-size: 1rem; }
+    .preguntas .ancho { grid-template-columns: 1fr; gap: 24px; }
+    .portada .ancho, .historia .intro, .pase .cabeza, .empresas .cabeza, .empresas .datos, .cierre .ancho { grid-template-columns: 1fr; }
+    .portada .ancho { gap: 36px; padding-block: 28px 64px; }
+    .adorno.a, .adorno.b { display: none; }
+    .adorno.c { top: 26px; right: 22px; bottom: auto; left: auto; }
+    .semana { grid-template-columns: 1fr 1fr; row-gap: 30px; }
+    .semana li:nth-child(2)::before { right: 0; }
+    .pasos, .tarjetas { grid-template-columns: 1fr; }
+    .tickets { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    .tickets { grid-template-columns: 1fr; }
+    .dorsal { transform: rotate(1deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .boton, .ticket, .preguntas summary::after { transition: none; }
+    .boton:hover, .ticket:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="ancho">
+    <a href="index.html" aria-label="Social Run Antofa, ir al inicio"><img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386"></a>
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="index.html#historia">Quiénes somos</a></li>
+        <li><a href="index.html#corridas">Corridas</a></li>
+        <li><a href="index.html#beneficios">Pase VIP</a></li>
+        <li><a href="index.html#empresas">Empresas</a></li>
+        <li><a href="herramientas.html">Herramientas</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="entrada">
+    <div class="ancho">
+      <h1>herramientas <span class="mano">para runners</span></h1>
+      <p class="bajada">Calcula tu ritmo y prepara tu próxima carrera.</p>
+      <nav class="atajos" aria-label="Herramientas">
+        <a href="#ritmo">Ritmo</a>
+        <a href="#millas">Kilómetros y millas</a>
+        <a href="#predictor">Predictor</a>
+        <a href="#zonas">Zonas cardíacas</a>
+      </nav>
+    </div>
+  </section>
+  <section class="calculadora">
+    <div class="ancho">
+      <div class="herramientas">
+        <div class="columna">
+        <div class="herramienta" id="ritmo">
+          <h3>Calculadora de ritmo</h3>
+          <div class="opciones" role="group" aria-label="Qué quieres calcular">
+            <button class="opcion" type="button" data-modo="ritmo" aria-pressed="true">Calcular ritmo</button>
+            <button class="opcion" type="button" data-modo="tiempo" aria-pressed="false">Calcular tiempo</button>
+            <button class="opcion" type="button" data-modo="distancia" aria-pressed="false">Calcular distancia</button>
+          </div>
+          <div class="opciones" role="group" aria-label="Unidad">
+            <button class="opcion" type="button" data-unidad="km" aria-pressed="true">Kilómetros</button>
+            <button class="opcion" type="button" data-unidad="mi" aria-pressed="false">Millas</button>
+          </div>
+          <div class="calc-grupo" id="grupoDistancia">
+            <b>Distancia</b>
+            <div class="opciones" role="group" aria-label="Distancias frecuentes">
+              <button class="opcion" type="button" data-km="3" aria-pressed="false">3K</button>
+              <button class="opcion" type="button" data-km="5" aria-pressed="false">5K</button>
+              <button class="opcion" type="button" data-km="10" aria-pressed="false">10K</button>
+              <button class="opcion" type="button" data-km="21.0975" aria-pressed="false">Media maratón</button>
+              <button class="opcion" type="button" data-km="42.195" aria-pressed="true">Maratón</button>
+            </div>
+            <label class="calc-campo"><span id="etiquetaDistancia">Kilómetros</span><input id="distancia" type="text" inputmode="decimal" value="42,195" autocomplete="off"></label>
+          </div>
+          <div class="calc-grupo" id="grupoTiempo">
+            <b>Tiempo</b>
+            <div class="calc-fila">
+              <label class="calc-campo">Horas<input id="horas" type="number" min="0" inputmode="numeric" value="4"></label>
+              <label class="calc-campo">Minutos<input id="minutos" type="number" min="0" inputmode="numeric" value="30"></label>
+              <label class="calc-campo">Segundos<input id="segundos" type="number" min="0" inputmode="numeric" value="0"></label>
+            </div>
+          </div>
+          <div class="calc-grupo" id="grupoRitmo" hidden>
+            <b id="etiquetaRitmo">Ritmo por kilómetro</b>
+            <div class="calc-fila dos">
+              <label class="calc-campo">Minutos<input id="ritmoMin" type="number" min="0" inputmode="numeric" value="7"></label>
+              <label class="calc-campo">Segundos<input id="ritmoSeg" type="number" min="0" inputmode="numeric" value="0"></label>
+            </div>
+          </div>
+          <div class="resultado" aria-live="polite">
+            <p class="titulo" id="resultadoTitulo">Tu ritmo</p>
+            <p class="valor" id="resultadoValor"></p>
+            <dl class="equivalencias">
+              <div><dt>Por kilómetro</dt><dd id="porKm"></dd></div>
+              <div><dt>Por milla</dt><dd id="porMilla"></dd></div>
+              <div><dt>Velocidad</dt><dd id="velocidad"></dd></div>
+            </dl>
+            <div class="parciales" id="parciales"><b>Pasarías por</b><ul id="listaParciales"></ul></div>
+          </div>
+        </div>
+        <div class="herramienta" id="millas">
+          <h3>Kilómetros y millas</h3>
+          <label class="calc-campo">Kilómetros<input id="convKm" type="text" inputmode="decimal" value="42,195" autocomplete="off"></label>
+          <label class="calc-campo">Millas<input id="convMi" type="text" inputmode="decimal" value="26,219" autocomplete="off"></label>
+          <p>Escribe en cualquiera de los dos y el otro se calcula solo.</p>
+        </div>
+        </div>
+        <div class="columna">
+        <div class="herramienta" id="predictor">
+          <h3>Predictor de carreras</h3>
+          <p>Pon una carrera reciente y mira un tiempo estimado para otras distancias.</p>
+          <div class="calc-grupo">
+            <b>Tu carrera</b>
+            <div class="opciones" role="group" aria-label="Distancia de tu carrera">
+              <button class="opcion" type="button" data-pred="5" aria-pressed="false">5K</button>
+              <button class="opcion" type="button" data-pred="10" aria-pressed="true">10K</button>
+              <button class="opcion" type="button" data-pred="21.0975" aria-pressed="false">Media maratón</button>
+              <button class="opcion" type="button" data-pred="42.195" aria-pressed="false">Maratón</button>
+            </div>
+            <div class="calc-fila">
+              <label class="calc-campo">Horas<input id="predHoras" type="number" min="0" inputmode="numeric" value="1"></label>
+              <label class="calc-campo">Minutos<input id="predMinutos" type="number" min="0" inputmode="numeric" value="0"></label>
+              <label class="calc-campo">Segundos<input id="predSegundos" type="number" min="0" inputmode="numeric" value="0"></label>
+            </div>
+          </div>
+          <div class="tabla-herramienta">
+            <table>
+              <thead><tr><th>Distancia</th><th>Tiempo</th><th>Ritmo</th></tr></thead>
+              <tbody id="filasPredictor"></tbody>
+            </table>
+          </div>
+          <p class="nota">Es una estimación con la fórmula de Riegel. Funciona mejor si entrenaste para esa distancia.</p>
+        </div>
+        <div class="herramienta" id="zonas">
+          <h3>Zonas de frecuencia cardíaca</h3>
+          <p>Mira a cuántas pulsaciones entrenar según tu intensidad.</p>
+          <div class="calc-fila dos">
+            <label class="calc-campo">Edad<input id="edad" type="number" min="1" inputmode="numeric" value="30"></label>
+            <label class="calc-campo">Frecuencia máxima, si la sabes<input id="fcMax" type="number" min="1" inputmode="numeric" placeholder="Opcional"></label>
+          </div>
+          <div class="tabla-herramienta">
+            <table>
+              <thead><tr><th>Zona</th><th>Intensidad</th><th>Pulsaciones</th></tr></thead>
+              <tbody id="filasZonas"></tbody>
+            </table>
+          </div>
+          <p class="nota" id="notaZonas"></p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="cierre">
+  <svg class="ola" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110H1440V24C1260 76 1080 84 860 52C640 20 470 24 290 58C170 80 80 78 0 54Z"/></svg>
+  <div class="ancho">
+    <div>
+      <h2>Nos vemos en la largada!</h2>
+      <a class="boton claro" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">Síguenos en @socialrun.antofa</a>
+    </div>
+    <div class="firma">
+      <img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386" loading="lazy">
+      <p>Creado por Carlita, Javi, Dei, Dani y Vale</p>
+    </div>
+    <p class="credito">Página web por <a class="logo-fv" href="https://www.instagram.com/factorv.agencia/" target="_blank" rel="noopener" aria-label="Factor V en Instagram">Factor<span>V</span></a></p>
+  </div>
+</footer>
+<script>
+  const MILLA = 1.609344;
+  const PARCIALES = [[5, "5K"], [10, "10K"], [15, "15K"], [21.0975, "Media"], [30, "30K"], [42.195, "Maratón"]];
+  const leerDecimal = (texto) => {
+    const numero = parseFloat(String(texto).replace(",", "."));
+    return Number.isFinite(numero) && numero > 0 ? numero : 0;
+  };
+  const escribirDecimal = (numero) => numero.toLocaleString("es-CL", { maximumFractionDigits: 3, useGrouping: false });
+  const dosDigitos = (numero) => String(numero).padStart(2, "0");
+  const formatoTiempo = (segundos) => {
+    const total = Math.round(segundos);
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    return h ? `${h}:${dosDigitos(m)}:${dosDigitos(s)}` : `${m}:${dosDigitos(s)}`;
+  };
+  const calcular = (modo, km, tiempo, ritmoKm) => {
+    if (modo === "ritmo") return km && tiempo ? { km, tiempo, ritmoKm: tiempo / km } : null;
+    if (modo === "tiempo") return km && ritmoKm ? { km, tiempo: km * ritmoKm, ritmoKm } : null;
+    return tiempo && ritmoKm ? { km: tiempo / ritmoKm, tiempo, ritmoKm } : null;
+  };
+
+  const campo = (id) => document.getElementById(id);
+  const entero = (id) => Math.max(0, parseInt(campo(id).value, 10) || 0);
+  let modo = "ritmo";
+  let unidad = "km";
+
+  function mostrar() {
+    const factor = unidad === "mi" ? MILLA : 1;
+    const km = leerDecimal(campo("distancia").value) * factor;
+    const tiempo = entero("horas") * 3600 + entero("minutos") * 60 + entero("segundos");
+    const ritmoKm = (entero("ritmoMin") * 60 + entero("ritmoSeg")) / factor;
+    const r = calcular(modo, km, tiempo, ritmoKm);
+
+    campo("grupoDistancia").hidden = modo === "distancia";
+    campo("grupoTiempo").hidden = modo === "tiempo";
+    campo("grupoRitmo").hidden = modo === "ritmo";
+    campo("etiquetaDistancia").textContent = unidad === "mi" ? "Millas" : "Kilómetros";
+    campo("etiquetaRitmo").textContent = unidad === "mi" ? "Ritmo por milla" : "Ritmo por kilómetro";
+    campo("resultadoTitulo").textContent = { ritmo: "Tu ritmo", tiempo: "Tu tiempo", distancia: "Tu distancia" }[modo];
+    document.querySelectorAll("[data-km]").forEach((boton) => {
+      boton.setAttribute("aria-pressed", String(Math.abs(km - Number(boton.dataset.km)) < 0.01));
+    });
+
+    if (!r) {
+      campo("resultadoValor").textContent = "Completa los datos";
+      ["porKm", "porMilla", "velocidad"].forEach((id) => { campo(id).textContent = "Sin dato"; });
+      campo("parciales").hidden = true;
+      return;
+    }
+    const etiqueta = unidad === "mi" ? "mi" : "km";
+    campo("resultadoValor").textContent = {
+      ritmo: `${formatoTiempo(r.ritmoKm * factor)} min/${etiqueta}`,
+      tiempo: formatoTiempo(r.tiempo),
+      distancia: `${escribirDecimal(Number((r.km / factor).toFixed(2)))} ${etiqueta}`,
+    }[modo];
+    campo("porKm").textContent = `${formatoTiempo(r.ritmoKm)} min/km`;
+    campo("porMilla").textContent = `${formatoTiempo(r.ritmoKm * MILLA)} min/mi`;
+    campo("velocidad").textContent = `${escribirDecimal(Number((3600 / r.ritmoKm).toFixed(1)))} km/h`;
+
+    const lista = campo("listaParciales");
+    lista.textContent = "";
+    PARCIALES.filter(([distancia]) => distancia < r.km - 0.01).forEach(([distancia, nombre]) => {
+      const item = document.createElement("li");
+      item.textContent = `${nombre} en ${formatoTiempo(distancia * r.ritmoKm)}`;
+      lista.appendChild(item);
+    });
+    campo("parciales").hidden = !lista.children.length;
+  }
+
+  document.querySelectorAll("[data-modo]").forEach((boton) => boton.addEventListener("click", () => {
+    modo = boton.dataset.modo;
+    document.querySelectorAll("[data-modo]").forEach((otro) => otro.setAttribute("aria-pressed", String(otro === boton)));
+    mostrar();
+  }));
+  document.querySelectorAll("[data-unidad]").forEach((boton) => boton.addEventListener("click", () => {
+    if (boton.dataset.unidad === unidad) return;
+    const cambio = boton.dataset.unidad === "mi" ? 1 / MILLA : MILLA;
+    const distancia = leerDecimal(campo("distancia").value);
+    if (distancia) campo("distancia").value = escribirDecimal(distancia * cambio);
+    const ritmo = Math.round((entero("ritmoMin") * 60 + entero("ritmoSeg")) / cambio);
+    campo("ritmoMin").value = Math.floor(ritmo / 60);
+    campo("ritmoSeg").value = ritmo % 60;
+    unidad = boton.dataset.unidad;
+    document.querySelectorAll("[data-unidad]").forEach((otro) => otro.setAttribute("aria-pressed", String(otro === boton)));
+    mostrar();
+  }));
+  document.querySelectorAll("[data-km]").forEach((boton) => boton.addEventListener("click", () => {
+    campo("distancia").value = escribirDecimal(Number(boton.dataset.km) / (unidad === "mi" ? MILLA : 1));
+    mostrar();
+  }));
+  ["distancia", "horas", "minutos", "segundos", "ritmoMin", "ritmoSeg"].forEach((id) => campo(id).addEventListener("input", mostrar));
+
+  campo("convKm").addEventListener("input", () => {
+    const km = leerDecimal(campo("convKm").value);
+    campo("convMi").value = km ? escribirDecimal(km / MILLA) : "";
+  });
+  campo("convMi").addEventListener("input", () => {
+    const millas = leerDecimal(campo("convMi").value);
+    campo("convKm").value = millas ? escribirDecimal(millas * MILLA) : "";
+  });
+  mostrar();
+  const DISTANCIAS = [[5, "5K"], [10, "10K"], [21.0975, "Media maratón"], [42.195, "Maratón"]];
+  const ZONAS = [["1", "Muy suave", 0.5, 0.6], ["2", "Suave", 0.6, 0.7], ["3", "Moderada", 0.7, 0.8], ["4", "Intensa", 0.8, 0.9], ["5", "Máxima", 0.9, 1]];
+  const predecir = (tiempo, desde, hasta) => tiempo * Math.pow(hasta / desde, 1.06);
+  const llenarTabla = (id, filas) => {
+    const cuerpo = campo(id);
+    cuerpo.textContent = "";
+    filas.forEach((valores) => {
+      const fila = document.createElement("tr");
+      valores.forEach((valor) => {
+        const celda = document.createElement("td");
+        celda.textContent = valor;
+        fila.appendChild(celda);
+      });
+      cuerpo.appendChild(fila);
+    });
+  };
+  let distanciaPredictor = 10;
+
+  function mostrarPredictor() {
+    const tiempo = entero("predHoras") * 3600 + entero("predMinutos") * 60 + entero("predSegundos");
+    if (!tiempo) return llenarTabla("filasPredictor", [["Pon tu tiempo", "", ""]]);
+    llenarTabla("filasPredictor", DISTANCIAS.map(([distancia, nombre]) => {
+      const estimado = predecir(tiempo, distanciaPredictor, distancia);
+      return [nombre, formatoTiempo(estimado), `${formatoTiempo(estimado / distancia)} min/km`];
+    }));
+  }
+  function mostrarZonas() {
+    const propia = entero("fcMax");
+    const maxima = propia || (entero("edad") ? 220 - entero("edad") : 0);
+    if (maxima <= 0) {
+      campo("notaZonas").textContent = "Pon tu edad o tu frecuencia máxima.";
+      return llenarTabla("filasZonas", []);
+    }
+    llenarTabla("filasZonas", ZONAS.map(([zona, nombre, desde, hasta]) => [zona, nombre, `${Math.round(maxima * desde)} a ${Math.round(maxima * hasta)}`]));
+    campo("notaZonas").textContent = propia
+      ? `Calculado con tu frecuencia máxima de ${maxima}.`
+      : `Es una estimación general con 220 menos tu edad, ${maxima} pulsaciones. Si tienes una condición de salud, consulta a tu médico.`;
+  }
+  document.querySelectorAll("[data-pred]").forEach((boton) => boton.addEventListener("click", () => {
+    distanciaPredictor = Number(boton.dataset.pred);
+    document.querySelectorAll("[data-pred]").forEach((otro) => otro.setAttribute("aria-pressed", String(otro === boton)));
+    mostrarPredictor();
+  }));
+  ["predHoras", "predMinutos", "predSegundos"].forEach((id) => campo(id).addEventListener("input", mostrarPredictor));
+  ["edad", "fcMax"].forEach((id) => campo(id).addEventListener("input", mostrarZonas));
+  mostrarPredictor();
+  mostrarZonas();
+</script>
+</body>
+</html>

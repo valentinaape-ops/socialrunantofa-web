@@ -175,7 +175,9 @@
 
   @media (max-width: 860px) {
     .cabecera img { height: 50px; }
-    .cabecera nav { display: none; }
+    .cabecera { position: static; }
+    .cabecera .ancho { flex-wrap: wrap; gap: 6px 16px; }
+    .cabecera nav a { font-size: 1rem; }
     .preguntas .ancho { grid-template-columns: 1fr; gap: 24px; }
     .portada .ancho, .historia .intro, .pase .cabeza, .empresas .cabeza, .empresas .datos, .cierre .ancho { grid-template-columns: 1fr; }
     .portada .ancho { gap: 36px; padding-block: 28px 64px; }
@@ -205,12 +207,11 @@
     <a href="#inicio" aria-label="Social Run Antofa, ir al inicio"><img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386"></a>
     <nav aria-label="Secciones">
       <ul>
-        <li><a href="#historia">Cómo partimos</a></li>
-        <li><a href="#sumate">Súmate</a></li>
-        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#historia">Quiénes somos</a></li>
         <li><a href="#corridas">Corridas</a></li>
         <li><a href="#beneficios">Pase VIP</a></li>
         <li><a href="#empresas">Empresas</a></li>
+        <li><a href="herramientas.html">Herramientas</a></li>
       </ul>
     </nav>
   </div>
@@ -370,6 +371,5 @@
     <p class="credito">Página web por <a class="logo-fv" href="https://www.instagram.com/factorv.agencia/" target="_blank" rel="noopener" aria-label="Factor V en Instagram">Factor<span>V</span></a></p>
   </div>
 </footer>
-
 </body>
 </html>
