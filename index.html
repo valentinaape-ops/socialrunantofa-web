@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Social Run Antofa es una comunidad de más de 4.000 mujeres que corren juntas en Antofagasta.">
+<title>Social Run Antofa</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=League+Spartan:wght@700;800&family=Montserrat:wght@800&family=Poppins:wght@400;600;700&display=swap">
+<style>
+  body { margin: 0; }
+  img { max-width: 100%; height: auto; }
+  /* Concepto: la página es un día de corrida. Rosa arriba, el dorsal del próximo social run como pieza central, olas del logo entre secciones y tickets del pase vip al final. */
+  :root {
+    --rosa: #FF77C4;
+    --blanco: #F6F4F5;
+    --fucsia: #E6338F;
+    --fucsia-texto: #C71F76;
+    --ciruela: #3A1830;
+    --rosa-suave: #FFE4F2;
+    --papel: #FFFFFF;
+    --fv-crema: #FDF4DF;
+    --fv-burdeo: #6E1423;
+    --titulo: "League Spartan", "Poppins", system-ui, sans-serif;
+    --texto: "Poppins", system-ui, -apple-system, sans-serif;
+    --mano: "Allura", "Brush Script MT", cursive;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blanco); color: var(--ciruela); font-family: var(--texto); font-size: 16px; line-height: 1.55; }
+  h1, h2, h3, p, ul, ol, figure { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; }
+  h1, h2 { font-family: var(--titulo); font-weight: 800; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
+  h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .ancho { width: 100%; max-width: 1120px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .mano { font-family: var(--mano); font-weight: 400; letter-spacing: 0; }
+  .boton { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 26px; border-radius: 999px; background: var(--fucsia); color: #fff; font-weight: 700; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+  .boton:hover { background: var(--fucsia-texto); transform: translateY(-2px); }
+  .boton.claro { background: #fff; color: var(--fucsia-texto); }
+  .boton.claro:hover { background: var(--rosa-suave); }
+
+  /* Cabecera */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--rosa); }
+  .cabecera { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--rosa); }
+  .cabecera .ancho { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
+  .cabecera img { height: 58px; width: auto; }
+  .cabecera nav ul { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+  .cabecera nav a { color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+  .cabecera nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* Portada */
+  .portada { background: var(--rosa); color: #fff; position: relative; overflow: hidden; }
+  .portada .ancho { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-block: 44px 72px; position: relative; }
+  .portada h1 { font-size: clamp(4rem, 11.5vw, 8.6rem); line-height: .88; }
+  .portada h1 .mano { display: block; font-size: .78em; line-height: 1; margin-top: .06em; }
+  .bajada { margin-top: 26px; max-width: 30ch; font-family: var(--titulo); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.7rem); line-height: 1.2; }
+  .adorno { position: absolute; fill: #fff; }
+  .adorno.a { width: 34px; top: 30px; left: 47%; }
+  .adorno.b { width: 20px; bottom: 70px; left: 52%; }
+  .adorno.c { width: 40px; bottom: 120px; left: 47%; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; }
+
+  /* Dorsal */
+  .dorsal { background: var(--papel); color: var(--ciruela); border-radius: 18px; overflow: hidden; transform: rotate(2.2deg); box-shadow: 0 18px 40px -18px rgba(58, 24, 48, .55); position: relative; min-width: 0; }
+  .dorsal .franja { background: var(--fucsia); color: #fff; padding: 14px 44px; text-align: center; font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
+  .dorsal .cuerpo { padding: 20px 26px 26px; display: grid; gap: 14px; }
+  .dorsal .etiqueta { font-weight: 600; font-size: .9rem; color: var(--fucsia-texto); }
+  .dorsal .numero { font-family: var(--titulo); font-weight: 800; font-size: clamp(5rem, 10vw, 6.6rem); line-height: .86; letter-spacing: -.02em; }
+  .dorsal .numero span { display: block; font-size: .3em; letter-spacing: 0; line-height: 1.1; margin-top: .3em; }
+  .dorsal dl { margin: 0; display: grid; gap: 8px; border-top: 2px dashed var(--rosa); padding-top: 14px; }
+  .dorsal dl div { display: grid; grid-template-columns: 70px 1fr; gap: 10px; align-items: baseline; }
+  .dorsal dt { font-size: .9rem; color: var(--fucsia-texto); font-weight: 600; }
+  .dorsal dd { margin: 0; font-weight: 600; min-width: 0; }
+  .dorsal .boton { width: 100%; }
+  .alfiler { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--rosa); box-shadow: inset 0 2px 2px rgba(58, 24, 48, .35); top: 16px; }
+  .alfiler.i { left: 14px; }
+  .alfiler.d { right: 14px; }
+
+  /* Foto grupal entre olas */
+  .foto { position: relative; background: var(--blanco); }
+  .foto img { width: 100%; height: clamp(300px, 56vw, 640px); object-fit: cover; object-position: center 62%; }
+  .ola { position: absolute; left: 0; width: 100%; height: clamp(44px, 8vw, 110px); display: block; }
+  .ola.arriba { top: -1px; fill: var(--rosa); }
+  .ola.abajo { bottom: -1px; fill: var(--blanco); }
+
+  /* Cómo partimos */
+  .seccion { padding-block: clamp(56px, 9vw, 104px); }
+  .historia .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+  .historia .intro p { max-width: 60ch; }
+  .semana { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 52px; position: relative; }
+  .semana li { display: grid; gap: 6px; align-content: start; min-width: 0; padding-top: 34px; position: relative; }
+  .semana li::before { content: ""; position: absolute; top: 9px; left: 0; right: -20px; border-top: 3px dotted var(--rosa); }
+  .semana li:last-child::before { right: 0; }
+  .semana svg { position: absolute; top: 0; left: 0; width: 22px; height: 22px; fill: var(--fucsia); background: var(--blanco); }
+  .semana b { font-family: var(--titulo); font-weight: 800; font-size: 1.7rem; line-height: 1.05; }
+  .semana li:last-child b { color: var(--fucsia-texto); }
+
+  /* Borde costero */
+  .costa { background: var(--fucsia); color: #fff; }
+  .costa .ancho { padding-block: clamp(52px, 8vw, 92px); display: grid; gap: 20px; }
+  .costa blockquote { margin: 0; font-family: var(--titulo); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.3rem); line-height: 1.06; max-width: 22ch; text-wrap: balance; }
+  .costa p { max-width: 58ch; }
+
+  /* Cómo llegar a tu primera corrida */
+  .pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; counter-reset: paso; }
+  .pasos li { counter-increment: paso; display: grid; grid-template-columns: auto 1fr; gap: 14px; min-width: 0; }
+  .pasos li::before { content: counter(paso); font-family: var(--titulo); font-weight: 800; font-size: 3.4rem; line-height: .9; color: var(--rosa); }
+  .pasos h3 { font-family: var(--titulo); font-weight: 800; font-size: 1.35rem; line-height: 1.15; margin-bottom: 4px; }
+
+  /* Corridas pasadas */
+  .corridas { background: var(--rosa-suave); }
+  .tarjetas { display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; margin-top: 36px; }
+  .tarjetas figure { display: grid; grid-template-rows: auto 1fr; background: var(--papel); border-radius: 18px; overflow: hidden; min-width: 0; }
+  .tarjetas img { width: 100%; height: 340px; object-fit: cover; }
+  .tarjetas .fantasmas img { object-position: center 70%; }
+  .tarjetas .grupo img { object-position: center; }
+  .tarjetas figcaption { padding: 18px 22px 22px; display: grid; gap: 4px; align-content: start; }
+  .tarjetas b { font-family: var(--titulo); font-weight: 800; font-size: 1.45rem; line-height: 1.1; }
+
+  /* Pase vip */
+  .pase .cabeza { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; }
+  .pase .cabeza .mano { color: var(--fucsia-texto); font-size: 1.28em; }
+  .tickets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .ticket { display: grid; grid-template-columns: auto 1fr; align-items: center; background: var(--rosa); border-radius: 16px; position: relative; min-width: 0; overflow: hidden; transition: transform .18s ease; }
+  .ticket:hover { transform: rotate(-1deg) translateY(-3px); }
+  .ticket .pct { padding: 20px 14px 20px 20px; color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 2.7rem; line-height: 1; border-right: 2px dashed #fff; min-width: 112px; }
+  .ticket .marca { background: var(--papel); align-self: stretch; display: grid; align-content: center; gap: 2px; padding: 14px 16px; min-width: 0; }
+  .ticket .marca b { font-weight: 700; overflow-wrap: anywhere; line-height: 1.25; }
+  .ticket .marca span { font-size: .875rem; }
+  .pendiente { background: #FFF2A8; color: var(--ciruela); border-radius: 4px; padding: 0 5px; font-weight: 600; width: fit-content; }
+
+  .comprar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 32px; }
+  .comprar .precio { font-family: var(--titulo); font-weight: 800; font-size: 1.7rem; line-height: 1.2; }
+  .comprar .precio .pendiente { font-family: var(--texto); font-size: 1rem; }
+
+  /* Empresas */
+  .empresas { background: var(--ciruela); color: #fff; }
+  .empresas .cabeza { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end; }
+  .empresas h2 .mano { color: var(--rosa); font-size: 1.2em; }
+  .empresas .datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
+  .empresas .datos li { display: grid; gap: 6px; align-content: start; border-top: 3px dotted var(--rosa); padding-top: 16px; min-width: 0; }
+  .empresas .datos b { font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; line-height: 1.1; color: var(--rosa); }
+  .empresas .aliadas { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; margin-top: 44px; }
+  .empresas .aliadas p b { font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; }
+  .empresas .contacto { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .empresas .correo { font-weight: 600; color: #fff; overflow-wrap: anywhere; user-select: all; }
+
+  .pronto { display: inline-block; margin-top: 32px; padding: 10px 22px; border-radius: 999px; background: var(--fucsia); color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; line-height: 1.2; }
+
+  /* Cierre */
+  .cierre { background: var(--rosa); color: #fff; position: relative; }
+  .cierre .ola { top: -1px; fill: var(--ciruela); transform: scaleY(-1); }
+  .cierre .credito { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-weight: 600; border-top: 2px dotted #fff; padding-top: 16px; }
+  .logo-fv { display: inline-flex; align-items: baseline; padding: 4px 18px 8px; border-radius: 12px; background: var(--fv-crema); color: var(--fv-burdeo); font-family: "Montserrat", var(--texto); font-weight: 800; font-size: 1.5rem; line-height: 1.2; letter-spacing: -.02em; text-decoration: none; }
+  .logo-fv span { font-family: "Great Vibes", var(--mano); font-weight: 400; font-size: 1.65em; line-height: 1; letter-spacing: 0; margin-left: 2px; }
+  .cierre .ancho { padding-block: clamp(96px, 13vw, 150px) 40px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; }
+  .cierre h2 { font-size: clamp(2.8rem, 8vw, 5.4rem); line-height: .94; }
+  .cierre .boton { margin-top: 26px; }
+  .cierre .firma { display: grid; gap: 10px; justify-items: start; font-weight: 600; }
+  .cierre .firma img { width: min(230px, 62%); height: auto; }
+
+  @media (max-width: 860px) {
+    .cabecera img { height: 50px; }
+    .cabecera nav { display: none; }
+    .portada .ancho, .historia .intro, .pase .cabeza, .empresas .cabeza, .empresas .datos, .cierre .ancho { grid-template-columns: 1fr; }
+    .portada .ancho { gap: 36px; padding-block: 28px 64px; }
+    .adorno.a, .adorno.b { display: none; }
+    .adorno.c { top: 26px; right: 22px; bottom: auto; left: auto; }
+    .semana { grid-template-columns: 1fr 1fr; row-gap: 30px; }
+    .semana li:nth-child(2)::before { right: 0; }
+    .pasos, .tarjetas { grid-template-columns: 1fr; }
+    .tickets { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    .tickets { grid-template-columns: 1fr; }
+    .dorsal { transform: rotate(1deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .boton, .ticket { transition: none; }
+    .boton:hover, .ticket:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<header class="cabecera">
+  <div class="ancho">
+    <a href="#inicio" aria-label="Social Run Antofa, ir al inicio"><img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386"></a>
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="#historia">Cómo partimos</a></li>
+        <li><a href="#sumate">Súmate</a></li>
+        <li><a href="#corridas">Corridas</a></li>
+        <li><a href="#beneficios">Pase VIP</a></li>
+        <li><a href="#empresas">Empresas</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="portada">
+    <div class="ancho">
+      <svg class="adorno a" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 C21 15 25 19 37 20 C25 21 21 25 20 37 C19 25 15 21 3 20 C15 19 19 15 20 3 Z"/></svg>
+      <svg class="adorno b" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 C21 15 25 19 37 20 C25 21 21 25 20 37 C19 25 15 21 3 20 C15 19 19 15 20 3 Z"/></svg>
+      <svg class="adorno c" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg>
+      <div>
+        <h1>corre con nosotras <span class="mano">en antofa</span></h1>
+        <p class="bajada">Más de 4.000 mujeres. Casi todos los fines de semana, frente al mar.</p>
+      </div>
+
+      <article class="dorsal" aria-label="Próximo social run">
+        <i class="alfiler i"></i><i class="alfiler d"></i>
+        <div class="franja">5K solidarios por la Teletón</div>
+        <div class="cuerpo">
+          <p class="etiqueta">Próximo social run</p>
+          <p class="numero">7<span>de noviembre, sábado</span></p>
+          <dl>
+            <div><dt>Hora</dt><dd>09:30 hrs</dd></div>
+            <div><dt>Lugar</dt><dd>Balneario Municipal de Antofagasta</dd></div>
+            <div><dt>Quién</dt><dd>Abierto a todo público</dd></div>
+          </dl>
+          <a class="boton" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">Inscríbete en nuestro perfil</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <figure class="foto">
+    <svg class="ola arriba" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V30C1250 92 1090 96 880 62C660 26 480 30 300 66C170 92 80 86 0 60Z"/></svg>
+    <img src="img/grupo.jpg" alt="Grupo de mujeres del Social Run Antofa posando con banderas rosadas después de correr" width="1320" height="880">
+    <svg class="ola abajo" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110H1440V24C1260 76 1080 84 860 52C640 20 470 24 290 58C170 80 80 78 0 54Z"/></svg>
+  </figure>
+
+  <section class="seccion historia" id="historia">
+    <div class="ancho">
+      <div class="intro">
+        <h2>Todo partió con una conversación</h2>
+        <p>Somos cinco amigas que amamos correr. Un día surgió la pregunta, y si nos juntamos a correr? No le dimos muchas vueltas.</p>
+      </div>
+      <ol class="semana">
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><b>Domingo</b><span>Nos pusimos de acuerdo.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><b>Jueves</b><span>Lo publicamos en nuestras redes.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><b>Sábado</b><span>Llegaron quince chicas y nos reímos muchísimo.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><b>Hoy</b><span>Más de 4.000 mujeres, y no hemos parado.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="costa">
+    <div class="ancho">
+      <blockquote>Hemos recuperado espacios del borde costero, llenándolos de mujeres que corren.</blockquote>
+      <p>Muchas de las chicas que llegan a los social runs empezaron a entrenar también durante la semana, y hoy se ven muchas más mujeres corriendo por la costa. Es un paso en el largo camino de ganar espacios públicos para las mujeres.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="sumate">
+    <div class="ancho">
+      <h2>Tu primera corrida</h2>
+      <ol class="pasos">
+        <li><div><h3>Mira la fecha</h3><p>Publicamos cada social run en nuestro Instagram.</p></div></li>
+        <li><div><h3>Inscríbete</h3><p>El link está en nuestro perfil.</p></div></li>
+        <li><div><h3>Llega y corre</h3><p>Ven sola o con tu partner. Acá te vas a encontrar con muchas más.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion corridas" id="corridas">
+    <div class="ancho">
+      <h2>Así lo hemos vivido</h2>
+      <div class="tarjetas">
+        <figure class="fantasmas">
+          <img src="img/fantasmas.jpg" alt="Dos personas disfrazadas de fantasma brindan con sus shakers frente a La Portada" width="820" height="831" loading="lazy">
+          <figcaption><b>Halloween Run</b><span>Viernes 30 de octubre en el anfiteatro del Parque Croacia. Social run familiar y disfrazadas.</span></figcaption>
+        </figure>
+        <figure class="grupo">
+          <img src="img/grupo.jpg" alt="Grupo del segundo social run sonriendo con banderas rosadas" width="1320" height="880" loading="lazy">
+          <figcaption><b>Segundo social run</b><span>Una de nuestras primeras corridas, con banderas rosadas y muchas ganas.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion pase" id="beneficios">
+    <div class="ancho">
+      <div class="cabeza">
+        <h2>Tu pase <span class="mano">vip</span></h2>
+        <p>Los descuentos en nuestras marcas aliadas serán solo para quienes tengan el Pase VIP. Correr con nosotras sigue siendo para todas, y con tu pase además apoyas a la comunidad.</p>
+      </div>
+      <ul class="tickets">
+        <li class="ticket"><div class="pct">15%</div><div class="marca"><b>@monkeysacai.cl</b><span>de descuento</span></div></li>
+        <li class="ticket"><div class="pct">15%</div><div class="marca"><b>@nutrivaleriaflores</b><span>de descuento</span></div></li>
+        <li class="ticket"><div class="pct">20%</div><div class="marca"><b>@nutri.brian</b><span>de descuento</span></div></li>
+        <li class="ticket"><div class="pct">15%</div><div class="marca"><b>@turizorehab_</b><span>de descuento</span></div></li>
+        <li class="ticket"><div class="pct">15%</div><div class="marca"><b>Café Trocadero</b><span>de descuento</span></div></li>
+        <li class="ticket"><div class="pct">15%</div><div class="marca"><b>La Fitzzeria</b><span>de descuento</span></div></li>
+      </ul>
+      <p class="pronto">Pase VIP muy pronto</p>
+    </div>
+  </section>
+
+  <section class="seccion empresas" id="empresas">
+    <div class="ancho">
+      <div class="cabeza">
+        <h2>Tu empresa <span class="mano">con nosotras</span></h2>
+        <p>Somos más de 4.000 mujeres que se juntan casi todos los fines de semana en el borde costero de Antofagasta. Si tu empresa quiere estar cerca de esta comunidad y aportar a la ciudad, armemos una alianza a tu medida.</p>
+      </div>
+      <ul class="datos">
+        <li><b>Social run con tu marca</b><span>Auspicia una corrida y conecta con la comunidad en persona.</span></li>
+        <li><b>Activación en terreno</b><span>Lleva tu marca, tus productos o tu equipo al punto de encuentro.</span></li>
+        <li><b>Contenido en redes</b><span>Publicaciones colaborativas para contar lo que estamos haciendo juntas.</span></li>
+      </ul>
+      <div class="aliadas">
+        <p>Ya trabajamos con <b>Creo</b></p>
+        <div class="contacto">
+          <a class="boton" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">Conversemos por Instagram</a>
+          <a class="correo" href="mailto:socialrunantofa@gmail.com">socialrunantofa@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="cierre">
+  <svg class="ola" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110H1440V24C1260 76 1080 84 860 52C640 20 470 24 290 58C170 80 80 78 0 54Z"/></svg>
+  <div class="ancho">
+    <div>
+      <h2>Nos vemos en la largada!</h2>
+      <a class="boton claro" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">Síguenos en @socialrun.antofa</a>
+    </div>
+    <div class="firma">
+      <img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386" loading="lazy">
+      <p>Creado por Carlita, Javi, Dei, Dani y Vale</p>
+    </div>
+    <p class="credito">Página web por <a class="logo-fv" href="https://www.instagram.com/factorv.agencia/" target="_blank" rel="noopener" aria-label="Factor V en Instagram">Factor<span>V</span></a></p>
+  </div>
+</footer>
+
+</body>
+</html>
