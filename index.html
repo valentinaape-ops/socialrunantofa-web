@@ -109,6 +109,18 @@
   .pasos li::before { content: counter(paso); font-family: var(--titulo); font-weight: 800; font-size: 3.4rem; line-height: .9; color: var(--rosa); }
   .pasos h3 { font-family: var(--titulo); font-weight: 800; font-size: 1.35rem; line-height: 1.15; margin-bottom: 4px; }
 
+  /* Preguntas frecuentes */
+  .preguntas { padding-top: 0; }
+  .preguntas .ancho { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; }
+  .preguntas .lista { display: grid; gap: 10px; min-width: 0; }
+  .preguntas details { background: var(--papel); border-radius: 14px; min-width: 0; }
+  .preguntas summary { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 16px 20px; cursor: pointer; list-style: none; font-family: var(--titulo); font-weight: 800; font-size: 1.25rem; line-height: 1.15; }
+  .preguntas summary::-webkit-details-marker { display: none; }
+  .preguntas summary::after { content: "+"; color: var(--fucsia-texto); font-size: 1.7rem; line-height: 1; transition: transform .18s ease; }
+  .preguntas details[open] summary::after { transform: rotate(45deg); }
+  .preguntas summary:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 2px; border-radius: 14px; }
+  .preguntas details p { padding: 0 20px 18px; max-width: 58ch; }
+
   /* Corridas pasadas */
   .corridas { background: var(--rosa-suave); }
   .tarjetas { display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; margin-top: 36px; }
@@ -153,8 +165,8 @@
   .cierre { background: var(--rosa); color: #fff; position: relative; }
   .cierre .ola { top: -1px; fill: var(--ciruela); transform: scaleY(-1); }
   .cierre .credito { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-weight: 600; border-top: 2px dotted #fff; padding-top: 16px; }
-  .logo-fv { display: inline-flex; align-items: baseline; padding: 4px 18px 8px; border-radius: 12px; background: var(--fv-crema); color: var(--fv-burdeo); font-family: "Montserrat", var(--texto); font-weight: 800; font-size: 1.5rem; line-height: 1.2; letter-spacing: -.02em; text-decoration: none; }
-  .logo-fv span { font-family: "Great Vibes", var(--mano); font-weight: 400; font-size: 1.65em; line-height: 1; letter-spacing: 0; margin-left: 2px; }
+  .logo-fv { display: inline-flex; align-items: baseline; padding: 10px 19px 12px 18px; border-radius: 12px; background: var(--fv-crema); color: var(--fv-burdeo); font-family: "Montserrat", var(--texto); font-weight: 800; font-size: 1.3rem; line-height: 1.2; letter-spacing: -.02em; text-decoration: none; }
+  .logo-fv span { font-family: "Great Vibes", var(--mano); font-weight: 400; font-size: 1.65em; line-height: 1.2; letter-spacing: 0; margin-left: 2px; padding-right: .12em; }
   .cierre .ancho { padding-block: clamp(96px, 13vw, 150px) 40px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; }
   .cierre h2 { font-size: clamp(2.8rem, 8vw, 5.4rem); line-height: .94; }
   .cierre .boton { margin-top: 26px; }
@@ -164,6 +176,7 @@
   @media (max-width: 860px) {
     .cabecera img { height: 50px; }
     .cabecera nav { display: none; }
+    .preguntas .ancho { grid-template-columns: 1fr; gap: 24px; }
     .portada .ancho, .historia .intro, .pase .cabeza, .empresas .cabeza, .empresas .datos, .cierre .ancho { grid-template-columns: 1fr; }
     .portada .ancho { gap: 36px; padding-block: 28px 64px; }
     .adorno.a, .adorno.b { display: none; }
@@ -179,7 +192,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .boton, .ticket { transition: none; }
+    .boton, .ticket, .preguntas summary::after { transition: none; }
     .boton:hover, .ticket:hover { transform: none; }
   }
 </style>
@@ -194,6 +207,7 @@
       <ul>
         <li><a href="#historia">Cómo partimos</a></li>
         <li><a href="#sumate">Súmate</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
         <li><a href="#corridas">Corridas</a></li>
         <li><a href="#beneficios">Pase VIP</a></li>
         <li><a href="#empresas">Empresas</a></li>
@@ -269,6 +283,23 @@
     </div>
   </section>
 
+  <section class="seccion preguntas" id="preguntas">
+    <div class="ancho">
+      <h2>Preguntas frecuentes</h2>
+      <div class="lista">
+        <details open><summary>Tengo que correr rápido?</summary><p>No necesariamente. Vamos a 7 minutos por kilómetro, un ritmo en el que se puede conversar.</p></details>
+        <details><summary>Cuántos kilómetros se corren?</summary><p>Por lo general corremos dos distancias, 3K y 5K.</p></details>
+        <details><summary>Puedo ir sola?</summary><p>Sí. Ven sola o con tu partner, acá te vas a encontrar con muchas más.</p></details>
+        <details><summary>Cada cuánto se juntan?</summary><p>Casi todos los fines de semana. Publicamos cada fecha en nuestro Instagram.</p></details>
+        <details><summary>Cómo me inscribo?</summary><p>Con el link que está en nuestro perfil de Instagram.</p></details>
+        <details><summary>Cuánto cuesta ir?</summary><p>Por ahora los social runs son gratis.</p></details>
+        <details><summary>Puedo ir con mis hijos o mi pareja?</summary><p>Nuestros social runs son para mujeres. Si son niños pequeños no hay problema, y eventualmente hacemos eventos familiares, como el de Halloween.</p></details>
+        <details><summary>Qué llevo?</summary><p>Ropa cómoda, zapatillas para correr y agua. Y recuerda echarte bloqueador.</p></details>
+        <details><summary>Qué es el Pase VIP?</summary><p>Costará $5.000 e incluirá los descuentos en nuestras marcas aliadas y una actividad privada al mes.</p></details>
+        <details><summary>Mi empresa quiere trabajar con ustedes</summary><p>Escríbenos a socialrunantofa@gmail.com o por Instagram a @socialrun.antofa.</p></details>
+      </div>
+    </div>
+  </section>
   <section class="seccion corridas" id="corridas">
     <div class="ancho">
       <h2>Así lo hemos vivido</h2>
@@ -289,7 +320,7 @@
     <div class="ancho">
       <div class="cabeza">
         <h2>Tu pase <span class="mano">vip</span></h2>
-        <p>Los descuentos en nuestras marcas aliadas serán solo para quienes tengan el Pase VIP. Correr con nosotras sigue siendo para todas, y con tu pase además apoyas a la comunidad.</p>
+        <p>El Pase VIP incluirá los descuentos en nuestras marcas aliadas y una actividad privada al mes. Correr con nosotras sigue siendo para todas, y con tu pase además apoyas a la comunidad.</p>
       </div>
       <ul class="tickets">
         <li class="ticket"><div class="pct">15%</div><div class="marca"><b>@monkeysacai.cl</b><span>de descuento</span></div></li>
@@ -299,7 +330,7 @@
         <li class="ticket"><div class="pct">15%</div><div class="marca"><b>Café Trocadero</b><span>de descuento</span></div></li>
         <li class="ticket"><div class="pct">15%</div><div class="marca"><b>La Fitzzeria</b><span>de descuento</span></div></li>
       </ul>
-      <p class="pronto">Pase VIP muy pronto</p>
+      <p class="pronto">Pase VIP $5.000, muy pronto</p>
     </div>
   </section>
 
