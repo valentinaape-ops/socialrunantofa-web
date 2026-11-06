@@ -121,6 +121,23 @@
   .preguntas summary:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 2px; border-radius: 14px; }
   .preguntas details p { padding: 0 20px 18px; max-width: 58ch; }
 
+  /* Equipo */
+  .equipo { display: grid; gap: 30px; margin-bottom: clamp(56px, 8vw, 88px); }
+  .equipo ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .equipo li { display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .foto-equipo { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 16px; background: var(--rosa-suave); display: grid; place-items: center; align-content: center; gap: 8px; padding: 8px; text-align: center; overflow: hidden; }
+  .foto-equipo svg { width: 42px; height: 42px; fill: none; stroke: var(--rosa); stroke-width: 2.2; stroke-linecap: round; }
+  .foto-equipo img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; }
+  .datos-equipo { display: grid; gap: 2px; min-width: 0; }
+  .equipo h3 { margin: 0; font-family: var(--titulo); font-weight: 800; font-size: 1.6rem; line-height: 1.05; }
+  .equipo b { color: var(--fucsia-texto); font-weight: 600; line-height: 1.3; }
+  .equipo p { font-size: .95rem; line-height: 1.45; }
+  .equipo .intro-equipo { max-width: 62ch; font-size: 1.1rem; line-height: 1.5; }
+  .cabeza-equipo { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
+  .texto-equipo { display: grid; gap: 16px; min-width: 0; }
+  .foto-cinco { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 45%; border-radius: 18px; }
+  .foto-equipo.con-foto { padding: 0; }
+
   /* Corridas pasadas */
   .corridas { background: var(--rosa-suave); }
   .tarjetas { display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; margin-top: 36px; }
@@ -186,6 +203,9 @@
     .semana { grid-template-columns: 1fr 1fr; row-gap: 30px; }
     .semana li:nth-child(2)::before { right: 0; }
     .pasos, .tarjetas { grid-template-columns: 1fr; }
+    .cabeza-equipo { grid-template-columns: 1fr; gap: 22px; }
+    .equipo ul { grid-template-columns: 1fr; }
+    .equipo li { grid-template-columns: 112px minmax(0, 1fr); gap: 16px; align-items: center; }
     .tickets { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 620px) {
@@ -253,9 +273,40 @@
 
   <section class="seccion historia" id="historia">
     <div class="ancho">
+      <div class="equipo">
+        <div class="cabeza-equipo">
+          <div class="texto-equipo">
+            <h2>Quiénes somos</h2>
+            <p class="intro-equipo">Somos cinco amigas unidas por una pasión, el running. Nos mueve crear espacios seguros para la comunidad en Antofagasta, sobre todo para las mujeres, y lo hacemos con todo el corazón.</p>
+          </div>
+          <img class="foto-cinco" src="img/las-cinco.jpg" alt="Las cinco fundadoras de Social Run Antofa posando en la costanera" loading="lazy">
+        </div>
+        <ul>
+          <li>
+            <div class="foto-equipo con-foto"><img src="img/dani.jpg" alt="Dani haciendo corazones con los dedos" loading="lazy"></div>
+            <div class="datos-equipo"><h3>Dani</h3><b>La animadora oficial</b><p>Divertida y graciosa. Si te quedas sin energía, ella te devuelve las ganas.</p></div>
+          </li>
+          <li>
+            <div class="foto-equipo con-foto"><img src="img/javi.jpg" alt="Javi sonriendo con una botella de running" loading="lazy"></div>
+            <div class="datos-equipo"><h3>Javi</h3><b>La DJ oficial</b><p>Nos saca risas y nos hace cantar karaoke mientras corremos.</p></div>
+          </li>
+          <li>
+            <div class="foto-equipo"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg></div>
+            <div class="datos-equipo"><h3>Dei</h3><b>Nuestra trail runner</b><p>La Terrenator. Seca, poderosa y corre harto. Si hay un cerro, ella ya va arriba.</p></div>
+          </li>
+          <li>
+            <div class="foto-equipo"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg></div>
+            <div class="datos-equipo"><h3>Carlita</h3><b>La apañadora oficial</b><p>Graciosa, tierna y divertida. Siempre está cuando la necesitas.</p></div>
+          </li>
+          <li>
+            <div class="foto-equipo con-foto"><img src="img/vale.jpg" alt="Vale de rosado mirando por sobre el hombro" loading="lazy"></div>
+            <div class="datos-equipo"><h3>Vale</h3><b>La del "y si hacemos...?"</b><p>Siempre llega con una idea nueva, y entre todas la hacemos realidad.</p></div>
+          </li>
+        </ul>
+      </div>
       <div class="intro">
         <h2>Todo partió con una conversación</h2>
-        <p>Somos cinco amigas que amamos correr. Un día surgió la pregunta, y si nos juntamos a correr? No le dimos muchas vueltas.</p>
+        <p>Un día, conversando, surgió la pregunta. Y si nos juntamos a correr? No le dimos muchas vueltas.</p>
       </div>
       <ol class="semana">
         <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><b>Domingo</b><span>Nos pusimos de acuerdo.</span></li>
