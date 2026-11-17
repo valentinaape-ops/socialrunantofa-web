@@ -101,6 +101,16 @@
   .casos .dato { font-weight: 700; color: var(--fucsia-texto); }
   .aliada { margin-top: 28px; font-weight: 600; }
   .aliada b { font-family: var(--titulo); font-weight: 800; font-size: 1.4rem; }
+  .colaboramos { margin-top: 44px; display: grid; gap: 18px; }
+  .colaboramos h3 { font-family: var(--titulo); font-weight: 800; font-size: 1.6rem; line-height: 1.1; }
+  .logos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .logos li { background: var(--papel); border-radius: 16px; min-height: 120px; padding: 18px; display: grid; place-items: center; text-align: center; min-width: 0; }
+  .logos img { max-width: 100%; max-height: 72px; width: auto; height: auto; object-fit: contain; }
+  .logos .tu-marca { background: none; border: 2px dashed var(--fucsia); }
+  .logos .tu-marca a { color: var(--fucsia-texto); font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; text-decoration: none; }
+  .logos .tu-marca .mano { font-size: 1.5em; }
+  .logos .nombre { font-family: var(--titulo); font-weight: 800; font-size: 1.3rem; line-height: 1.1; color: var(--ciruela); overflow-wrap: anywhere; }
+  @media (max-width: 860px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .contacto-emp { background: var(--ciruela); color: #fff; --fondo-cierre: var(--ciruela); }
   .contacto-emp h2 .mano { color: var(--rosa); }
   .contacto-emp .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 28px; }
@@ -179,7 +189,19 @@
         </figure>
       </div>
       <p class="aliada"><b style="color: var(--fucsia-texto)">50 cupos agotados</b> en el social run del Enjoy del 22 de noviembre, con desayuno buffet, baile y premios.</p>
-      <p class="aliada">Ya trabajamos con <b>Creo</b></p>
+      <div class="colaboramos">
+        <h3>Colaboramos con</h3>
+        <ul class="logos">
+          <li><img src="img/logos/creo.png" alt="Creo Antofagasta" width="574" height="302" loading="lazy"></li>
+          <li><span class="nombre">Finisher</span></li>
+          <li><span class="nombre">Fundación Minera Escondida</span></li>
+          <li><span class="nombre">Enjoy</span></li>
+          <li><span class="nombre">La Fitzzeria</span></li>
+          <li><span class="nombre">Café del Desierto</span></li>
+          <li><span class="nombre">Brunetti</span></li>
+          <li class="tu-marca"><a href="#contacto"><span class="mano">tu marca</span> acá</a></li>
+        </ul>
+      </div>
     </div>
   </section>
   <section class="contacto-emp" id="contacto">
