@@ -177,6 +177,15 @@
   .tabla-herramienta th { font-weight: 600; font-size: .875rem; color: var(--fucsia-texto); }
   .nota { font-size: .875rem; }
   footer.cierre .ola { fill: var(--rosa-suave); }
+  /* Pestañas de herramientas */
+  .atajos a { border: 2px solid #fff; transition: background .18s ease, color .18s ease; }
+  .atajos a[aria-selected="true"] { background: var(--fucsia); border-color: var(--fucsia); color: #fff; }
+  .con-pestanas .herramientas { display: block; max-width: 760px; margin-inline: auto; }
+  .con-pestanas .columna { display: contents; }
+  .con-pestanas .herramienta { display: none; }
+  .con-pestanas .herramienta.activa { display: grid; }
+  .con-pestanas .ruta { max-width: none; margin-top: 0; }
+  .con-pestanas:has(.ruta.activa) .herramientas { display: none; }
   /* Ruta frente al mar */
   .ruta { margin-top: 20px; }
   .ruta .intro-ruta { max-width: 62ch; }
@@ -286,7 +295,7 @@
       <ul>
         <li><a href="index.html#historia">Quiénes somos</a></li>
         <li><a href="index.html#corridas">Corridas</a></li>
-        <li><a href="index.html#empresas">Empresas</a></li>
+        <li><a href="empresas.html">Empresas</a></li>
         <li><a href="herramientas.html">Herramientas</a></li>
         <li><a href="articulos.html">Artículos</a></li>
       </ul>
@@ -297,7 +306,7 @@
   <section class="entrada">
     <div class="ancho">
       <h1>herramientas <span class="mano">para runners</span></h1>
-      <p class="bajada">Calcula tu ritmo y prepara tu próxima carrera.</p>
+      <p class="bajada">Elige una herramienta y calcula tu ritmo, tu tiempo o tu ruta.</p>
       <nav class="atajos" aria-label="Herramientas">
         <a href="#ritmo">Ritmo</a>
         <a href="#millas">Kilómetros y millas</a>
@@ -682,7 +691,38 @@
       }
     };
     botones.forEach((b) => b.addEventListener("click", () => elegir(Number(b.dataset.ruta))));
+    document.getElementById("ruta").addEventListener("mostrar", () => {
+      if (!mapa) return;
+      requestAnimationFrame(() => { mapa.invalidateSize(); if (tramo) mapa.fitBounds(tramo.getBounds(), { padding: [30, 30] }); });
+    });
     elegir(5);
+  })();
+</script>
+<script>
+  (() => {
+    const zona = document.querySelector(".calculadora");
+    const pestanas = [...document.querySelectorAll(".atajos a")];
+    const paneles = pestanas.map((a) => document.querySelector(a.getAttribute("href")));
+    zona.classList.add("con-pestanas");
+    document.querySelector(".atajos").setAttribute("role", "tablist");
+    const mostrar = (id) => {
+      if (!paneles.some((p) => p.id === id)) id = paneles[0].id;
+      pestanas.forEach((a, i) => {
+        const activa = paneles[i].id === id;
+        a.setAttribute("role", "tab");
+        a.setAttribute("aria-selected", String(activa));
+        paneles[i].classList.toggle("activa", activa);
+        if (activa) paneles[i].dispatchEvent(new Event("mostrar"));
+      });
+    };
+    pestanas.forEach((a) => a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = a.getAttribute("href").slice(1);
+      history.replaceState(null, "", "#" + id);
+      mostrar(id);
+    }));
+    window.addEventListener("hashchange", () => mostrar(location.hash.slice(1)));
+    mostrar(location.hash.slice(1));
   })();
 </script>
 </body>
