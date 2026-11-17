@@ -87,6 +87,8 @@
   .bloque h2 .mano { color: var(--fucsia-texto); font-size: 1.15em; }
   .bloque .intro-bloque { max-width: 60ch; margin-top: 14px; font-size: 1.06rem; }
   .cifras { background: var(--rosa); color: #fff; }
+  .cifra-unica { text-align: center; font-family: var(--titulo); font-weight: 800; font-size: clamp(1.8rem, 5vw, 3.2rem); line-height: 1.1; text-wrap: balance; }
+  .cifra-unica b { display: inline-block; font-size: 1.35em; }
   .cifras ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
   .cifras li { display: grid; gap: 4px; align-content: start; border-top: 3px dotted #fff; padding-top: 16px; min-width: 0; }
   .cifras b { font-family: var(--titulo); font-weight: 800; font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1; }
@@ -161,11 +163,7 @@
   </section>
   <section class="cifras">
     <div class="ancho bloque">
-      <ul>
-        <li><b>+4.000</b><span>mujeres en nuestra comunidad</span></li>
-        <li><b>Casi todos</b><span>los fines de semana corriendo juntas frente al mar</span></li>
-        <li><b>50 de 50</b><span>cupos agotados en el social run del Enjoy</span></li>
-      </ul>
+      <p class="cifra-unica">Comunidad de más de <b>4.000 mujeres</b></p>
     </div>
   </section>
   <section id="por-que">
