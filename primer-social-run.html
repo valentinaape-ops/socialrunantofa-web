@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Social Run Antofa">
+<meta property="og:title" content="Cómo llegar a tu primer social run · Social Run Antofa">
+<meta property="og:description" content="Qué llevar, dónde nos juntamos y qué pasa si eres lenta. Todo para tu primera corrida con Social Run Antofa.">
+<meta property="og:url" content="https://socialrunantofa.cl/primer-social-run.html">
+<meta property="og:image" content="https://socialrunantofa.cl/img/vista-previa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<title>Tu primer social run</title>
+<meta name="description" content="Qué llevar, dónde nos juntamos y qué pasa si eres lenta. Todo para tu primera corrida con Social Run Antofa.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=League+Spartan:wght@700;800&family=Montserrat:wght@800&family=Poppins:wght@400;600;700&display=swap">
+<style>
+  body { margin: 0; }
+  :root {
+    --rosa: #FF77C4;
+    --blanco: #F6F4F5;
+    --fucsia: #E6338F;
+    --fucsia-texto: #C71F76;
+    --ciruela: #3A1830;
+    --rosa-suave: #FFE4F2;
+    --papel: #FFFFFF;
+    --fv-crema: #FDF4DF;
+    --fv-burdeo: #6E1423;
+    --titulo: "League Spartan", "Poppins", system-ui, sans-serif;
+    --texto: "Poppins", system-ui, -apple-system, sans-serif;
+    --mano: "Allura", "Brush Script MT", cursive;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blanco); color: var(--ciruela); font-family: var(--texto); font-size: 16px; line-height: 1.55; }
+  h1, h2, h3, p, ul, ol, figure { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--ciruela); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; max-width: 100%; height: auto; }
+  h1, h2 { font-family: var(--titulo); font-weight: 800; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
+  .ancho { width: 100%; max-width: 1120px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .mano { font-family: var(--mano); font-weight: 400; letter-spacing: 0; }
+  .boton { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 26px; border-radius: 999px; background: var(--fucsia); color: #fff; font-weight: 700; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+  .boton:hover { background: var(--fucsia-texto); transform: translateY(-2px); }
+  .boton.claro { background: #fff; color: var(--fucsia-texto); }
+  .boton.claro:hover { background: var(--rosa-suave); }
+  /* Cabecera */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--rosa); }
+  .cabecera { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--rosa); }
+  .cabecera .ancho { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
+  .cabecera img { height: 58px; width: auto; }
+  .cabecera nav ul { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+  .cabecera nav a { color: #fff; font-family: var(--titulo); font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+  .cabecera nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  /* Entrada */
+  .entrada { background: var(--rosa); color: #fff; }
+  .entrada .ancho { padding-block: 32px 44px; display: grid; gap: 14px; }
+  .entrada h1 { font-size: clamp(3rem, 9vw, 5.6rem); line-height: .92; }
+  .entrada h1 .mano { display: block; font-size: .9em; line-height: 1.05; }
+  .bajada { max-width: 34ch; font-family: var(--titulo); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.7rem); line-height: 1.2; }
+  /* Cierre */
+  .ola { position: absolute; left: 0; width: 100%; height: clamp(44px, 8vw, 110px); display: block; }
+  .cierre { background: var(--rosa); color: #fff; position: relative; }
+  .cierre .ola { top: -1px; fill: var(--fondo-cierre, var(--blanco)); transform: scaleY(-1); }
+  .cierre .ancho { padding-block: clamp(96px, 13vw, 150px) 40px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; }
+  .cierre h2 { font-size: clamp(2.8rem, 8vw, 5.4rem); line-height: .94; }
+  .cierre .boton { margin-top: 26px; }
+  .cierre .firma { display: grid; gap: 10px; justify-items: start; font-weight: 600; }
+  .cierre .firma img { width: min(230px, 62%); height: auto; }
+  .cierre .credito { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-weight: 600; border-top: 2px dotted #fff; padding-top: 16px; }
+  .logo-fv { display: inline-flex; align-items: baseline; padding: 10px 19px 12px 18px; border-radius: 12px; background: var(--fv-crema); color: var(--fv-burdeo); font-family: "Montserrat", var(--texto); font-weight: 800; font-size: 1.3rem; line-height: 1.2; letter-spacing: -.02em; text-decoration: none; }
+  .logo-fv span { font-family: "Great Vibes", var(--mano); font-weight: 400; font-size: 1.65em; line-height: 1.2; letter-spacing: 0; margin-left: 2px; padding-right: .12em; }
+  /* Artículo */
+  .articulo { background: var(--papel); padding-block: 0 72px; --fondo-cierre: var(--papel); }
+  .articulo .portada-art { width: 100%; height: clamp(220px, 42vw, 440px); object-fit: cover; object-position: center 62%; }
+  .texto-art { max-width: 680px; margin-inline: auto; padding-inline: 16px; padding-top: 40px; display: grid; gap: 18px; font-size: 1.06rem; }
+  .texto-art h2 { font-size: clamp(1.9rem, 5vw, 2.5rem); margin-top: 22px; color: var(--ciruela); }
+  .texto-art h2 .mano { color: var(--fucsia-texto); font-size: 1.15em; }
+  .texto-art a { color: var(--fucsia-texto); font-weight: 600; }
+  .volver { font-weight: 600; color: #fff; text-decoration: none; width: fit-content; }
+  .volver:hover { text-decoration: underline; }
+  .datos-art { font-weight: 600; }
+  .llevar { display: grid; gap: 10px; }
+  .llevar li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; }
+  .llevar svg { width: 22px; height: 22px; margin-top: 3px; fill: var(--fucsia); }
+  .destacado { background: var(--rosa-suave); border-radius: 18px; padding: 22px 24px; display: grid; gap: 10px; }
+  .destacado b { font-family: var(--titulo); font-weight: 800; font-size: 1.5rem; line-height: 1.1; color: var(--fucsia-texto); }
+  .punto { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border: 2px dashed var(--rosa); border-radius: 18px; padding: 18px 20px; }
+  .punto svg { width: 38px; height: 38px; fill: var(--fucsia); }
+  .punto p { font-weight: 600; }
+  @media (max-width: 860px) {
+    .cabecera img { height: 50px; }
+    .cabecera { position: static; }
+    .cabecera .ancho { flex-wrap: wrap; gap: 6px 16px; }
+    .cabecera nav a { font-size: 1rem; }
+    .cierre .ancho { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .boton, .tarjeta-articulo { transition: none; }
+    .boton:hover, .tarjeta-articulo:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<header class="cabecera">
+  <div class="ancho">
+    <a href="index.html" aria-label="Social Run Antofa, ir al inicio"><img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386"></a>
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="index.html#historia">Quiénes somos</a></li>
+        <li><a href="index.html#corridas">Corridas</a></li>
+        <li><a href="index.html#empresas">Empresas</a></li>
+        <li><a href="herramientas.html">Herramientas</a></li>
+        <li><a href="articulos.html">Artículos</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="entrada">
+    <div class="ancho">
+      <a class="volver" href="articulos.html">← Artículos</a>
+      <h1>tu primer <span class="mano">social run</span></h1>
+      <p class="bajada">Qué llevar, dónde nos juntamos y qué pasa si eres lenta.</p>
+    </div>
+  </section>
+  <article class="articulo">
+    <img class="portada-art" src="img/grupo.jpg" alt="Grupo de mujeres del Social Run Antofa posando con banderas rosadas después de correr" width="1320" height="880">
+    <div class="texto-art">
+      <p class="datos-art">Por Social Run Antofa · 3 min de lectura</p>
+      <p>Si estás leyendo esto, ya diste el primer paso. Ir a correr con un grupo que no conoces da nervios, nos pasó a todas. Acá te contamos cómo es un social run para que llegues tranquila y con ganas.</p>
+
+      <h2>Primero, <span class="mano">mira la fecha</span></h2>
+      <p>Nos juntamos casi todos los fines de semana. Cada social run lo publicamos en nuestro Instagram, <a href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">@socialrun.antofa</a>, con el día, la hora y el link para inscribirte. Inscribirte nos ayuda a saber cuántas vamos a ser.</p>
+
+      <h2>Dónde <span class="mano">nos juntamos</span></h2>
+      <div class="punto">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        <p>En el borde costero, en el punto de siempre, entre el Balneario Municipal y el Parque Las Almejas.</p>
+      </div>
+      <p>Llega unos 15 minutos antes. Así alcanzas a conocer a las chicas, dejar tus cosas tranquila y hacer el calentamiento con el grupo. Desde ahí corremos frente al mar. Si quieres ver por dónde vamos y cuánto mide cada tramo, mira nuestra <a href="herramientas.html#ruta">ruta frente al mar</a>.</p>
+
+      <h2>Qué <span class="mano">llevar</span></h2>
+      <ul class="llevar">
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><span><b>Zapatillas para correr.</b> No tienen que ser nuevas ni caras, solo cómodas.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><span><b>Ropa cómoda.</b> La que uses para hacer deporte. Si quieres, algo rosado.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><span><b>Agua.</b> Toma antes de salir y lleva una botella para después.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><span><b>Bloqueador.</b> El sol de Antofa no perdona, aunque esté nublado. Un jockey y lentes de sol también ayudan.</span></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34 C9 26 5 20 5 14 C5 9 9 6 13 6 C16 6 18.5 8 20 11 C21.5 8 24 6 27 6 C31 6 35 9 35 14 C35 20 31 26 20 34 Z"/></svg><span><b>Lo justo.</b> Llaves y celular en un banano o en un bolsillo con cierre, para correr liviana.</span></li>
+      </ul>
+
+      <h2>Y si soy <span class="mano">lenta?</span></h2>
+      <div class="destacado">
+        <b>Acá nadie viene a competir.</b>
+        <p>Vamos a 7 minutos por kilómetro, un ritmo en el que se puede conversar. Por lo general hay dos distancias, 3K y 5K, así que puedes partir por la corta. Y si en algún momento necesitas caminar, caminas. Eso también es parte de empezar.</p>
+      </div>
+      <p>Lo importante es que vengas. El ritmo se va dando solo, corrida a corrida.</p>
+
+      <h2>Puedo ir <span class="mano">sola?</span></h2>
+      <p>Sí, y muchas llegan así. Ven sola o con tu partner, acá te vas a encontrar con muchas más. Nuestros social runs son para mujeres, y si tienes niños pequeños los puedes traer sin problema.</p>
+
+      <h2>Cuánto <span class="mano">cuesta?</span></h2>
+      <p>La mayoría de los social runs son gratis. Algunos especiales tienen un valor de adhesión, y eso siempre lo avisamos en la publicación.</p>
+
+      <h2>Te <span class="mano">esperamos</span></h2>
+      <p>Revisa nuestro Instagram, elige tu fecha y ven. La primera vez es la más difícil, después vas a querer volver.</p>
+      <a class="boton" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener" style="width: fit-content">Ver el próximo social run</a>
+    </div>
+  </article>
+</main>
+<footer class="cierre">
+  <svg class="ola" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110H1440V24C1260 76 1080 84 860 52C640 20 470 24 290 58C170 80 80 78 0 54Z"/></svg>
+  <div class="ancho">
+    <div>
+      <h2>Nos vemos en la largada!</h2>
+      <a class="boton claro" href="https://www.instagram.com/socialrun.antofa/" target="_blank" rel="noopener">Síguenos en @socialrun.antofa</a>
+    </div>
+    <div class="firma">
+      <img src="img/logo-blanco.png" alt="Social Run Antofa" width="580" height="386" loading="lazy">
+      <p>Creado por Carlita, Javi, Dei, Dani y Vale</p>
+    </div>
+    <p class="credito">Página web por <a class="logo-fv" href="https://www.instagram.com/factorv.agencia/" target="_blank" rel="noopener" aria-label="Factor V en Instagram">Factor<span>V</span></a></p>
+  </div>
+</footer>
+</body>
+</html>

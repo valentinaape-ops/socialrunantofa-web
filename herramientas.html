@@ -6,7 +6,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Social Run Antofa">
 <meta property="og:title" content="Herramientas para correr · Social Run Antofa">
-<meta property="og:description" content="Calculadora de ritmo, kilómetros y millas, predictor de carreras y zonas cardíacas.">
+<meta property="og:description" content="Calculadora de ritmo, kilómetros y millas, predictor de carreras, zonas cardíacas y ruta frente al mar.">
 <meta property="og:url" content="https://socialrunantofa.cl/herramientas.html">
 <meta property="og:image" content="https://socialrunantofa.cl/img/vista-previa.jpg">
 <meta property="og:image:width" content="1200">
@@ -15,6 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Herramientas Social Run</title>
 <meta name="description" content="Calculadora de ritmo y herramientas gratis para runners de Social Run Antofa.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=League+Spartan:wght@700;800&family=Montserrat:wght@800&family=Poppins:wght@400;600;700&display=swap">
 <style>
   body { margin: 0; }
@@ -176,6 +177,25 @@
   .tabla-herramienta th { font-weight: 600; font-size: .875rem; color: var(--fucsia-texto); }
   .nota { font-size: .875rem; }
   footer.cierre .ola { fill: var(--rosa-suave); }
+  /* Ruta frente al mar */
+  .ruta { margin-top: 20px; }
+  .ruta .intro-ruta { max-width: 62ch; }
+  .ruta-cuerpo { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; align-items: start; }
+  .mapa { height: 460px; border-radius: 14px; overflow: hidden; background: var(--rosa-suave); z-index: 0; }
+  .mapa .leaflet-control-attribution { font-size: .7rem; }
+  .vuelta-pin { width: 18px; height: 18px; border-radius: 50%; background: var(--fucsia); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(58, 24, 48, .4); }
+  .hitos { display: grid; gap: 0; counter-reset: none; }
+  .hitos li { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: baseline; padding: 8px 0 8px 18px; border-left: 3px dotted var(--rosa); position: relative; }
+  .hitos li::before { content: ""; position: absolute; left: -7px; top: 15px; width: 11px; height: 11px; border-radius: 50%; background: var(--rosa); }
+  .hitos li.dentro::before { background: var(--fucsia); }
+  .hitos li.fuera { opacity: .4; }
+  .hitos li.giro { background: var(--rosa-suave); border-radius: 0 10px 10px 0; font-weight: 700; color: var(--fucsia-texto); }
+  .hitos li.giro::before { background: var(--fucsia); box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--fucsia); }
+  .hitos b { font-variant-numeric: tabular-nums; font-weight: 700; }
+  @media (max-width: 860px) {
+    .ruta-cuerpo { grid-template-columns: 1fr; }
+    .mapa { height: 340px; }
+  }
   @media (max-width: 860px) {
     .herramientas { grid-template-columns: 1fr; }
   }
@@ -268,6 +288,7 @@
         <li><a href="index.html#corridas">Corridas</a></li>
         <li><a href="index.html#empresas">Empresas</a></li>
         <li><a href="herramientas.html">Herramientas</a></li>
+        <li><a href="articulos.html">Artículos</a></li>
       </ul>
     </nav>
   </div>
@@ -282,6 +303,7 @@
         <a href="#millas">Kilómetros y millas</a>
         <a href="#predictor">Predictor</a>
         <a href="#zonas">Zonas cardíacas</a>
+        <a href="#ruta">Ruta frente al mar</a>
       </nav>
     </div>
   </section>
@@ -386,6 +408,29 @@
           <p class="nota" id="notaZonas"></p>
         </div>
         </div>
+      </div>
+      <div class="herramienta ruta" id="ruta">
+        <h3>Ruta frente al mar, sector sur</h3>
+        <p class="intro-ruta">Partimos en el punto de siempre, entre el Balneario Municipal y el Parque Las Almejas, y corremos hacia el sur por el borde costero. Elige cuánto quieres correr y te decimos dónde dar la vuelta.</p>
+        <div class="opciones" role="group" aria-label="Distancia ida y vuelta">
+          <button class="opcion" type="button" data-ruta="3" aria-pressed="false">3K</button>
+          <button class="opcion" type="button" data-ruta="5" aria-pressed="true">5K</button>
+          <button class="opcion" type="button" data-ruta="8" aria-pressed="false">8K</button>
+          <button class="opcion" type="button" data-ruta="10" aria-pressed="false">10K</button>
+          <button class="opcion" type="button" data-ruta="15" aria-pressed="false">15K</button>
+        </div>
+        <div class="ruta-cuerpo">
+          <div class="mapa" id="mapaRuta" role="img" aria-label="Mapa del borde costero sur de Antofagasta con la ruta marcada"></div>
+          <div class="calc-grupo">
+            <div class="resultado" aria-live="polite">
+              <p class="titulo">Da la vuelta en</p>
+              <p class="valor" id="rutaVuelta" style="font-size: clamp(1.8rem, 5vw, 2.4rem)"></p>
+              <p id="rutaDetalle"></p>
+            </div>
+            <ol class="hitos" id="rutaHitos"></ol>
+          </div>
+        </div>
+        <p class="nota">Distancias medidas sobre el mapa de OpenStreetMap, sin GPS. Pueden cambiar unos 100 metros según por dónde vayas.</p>
       </div>
     </div>
   </section>
@@ -553,6 +598,92 @@
   ["edad", "fcMax"].forEach((id) => campo(id).addEventListener("input", mostrarZonas));
   mostrarPredictor();
   mostrarZonas();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  (() => {
+    const TRAZA = [[-23.67193,-70.40998],[-23.67213,-70.41031],[-23.67238,-70.41018],[-23.67272,-70.41068],[-23.67339,-70.41113],[-23.67332,-70.41116],[-23.67335,-70.41120],[-23.67424,-70.41180],[-23.67438,-70.41174],[-23.67762,-70.41294],[-23.67886,-70.41331],[-23.67899,-70.41341],[-23.68035,-70.41378],[-23.68054,-70.41377],[-23.68101,-70.41388],[-23.68190,-70.41420],[-23.68240,-70.41463],[-23.68562,-70.41769],[-23.68665,-70.41875],[-23.68741,-70.41932],[-23.68833,-70.41985],[-23.68934,-70.42024],[-23.69289,-70.42139],[-23.69527,-70.42179],[-23.69546,-70.42199],[-23.69568,-70.42185],[-23.69581,-70.42185],[-23.69756,-70.42212],[-23.69864,-70.42239],[-23.70026,-70.42300],[-23.70034,-70.42320],[-23.70085,-70.42336],[-23.70102,-70.42325],[-23.70364,-70.42418],[-23.70371,-70.42431],[-23.70416,-70.42447],[-23.70421,-70.42434],[-23.70406,-70.42427],[-23.70413,-70.42412],[-23.70428,-70.42415],[-23.70428,-70.42402],[-23.70503,-70.42415],[-23.70511,-70.42398],[-23.70595,-70.42414],[-23.70669,-70.42436],[-23.70703,-70.42464],[-23.70728,-70.42502],[-23.70921,-70.42992],[-23.70901,-70.43001],[-23.70940,-70.43073],[-23.70982,-70.43122],[-23.71024,-70.43157],[-23.71268,-70.43288],[-23.71551,-70.43371],[-23.71917,-70.43437],[-23.72271,-70.43588],[-23.72360,-70.43617],[-23.72516,-70.43638],[-23.72526,-70.43630],[-23.72731,-70.43688],[-23.72743,-70.43676],[-23.72854,-70.43716],[-23.72859,-70.43723],[-23.72854,-70.43736],[-23.73124,-70.43830],[-23.73314,-70.43907]];
+    const HITOS = [
+      [0, "Punto de encuentro"],
+      [0.73, "Parque Croacia y Grúa Macosa"],
+      [1.22, "Hotel NH"],
+      [1.53, "Enjoy y Ruinas de Huanchaca"],
+      [2.03, "Parque Costero Avenida Ejército"],
+      [2.49, "Playa del Casino de Suboficiales"],
+      [3.76, "Universidad de Antofagasta"],
+      [4.02, "Auto Club"],
+      [4.89, "Poza de los Gringos"],
+      [6.03, "Playa Cúpula"],
+      [7.95, "Playa El Huáscar"]
+    ];
+    const RITMO_SOCIAL = 7;
+    const km = (n) => n.toLocaleString("es-CL", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const metros = (a, b) => {
+      const r = Math.PI / 180, dLat = (b[0] - a[0]) * r, dLon = (b[1] - a[1]) * r;
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLon / 2) ** 2;
+      return 12742000 * Math.asin(Math.sqrt(h));
+    };
+    const acumulado = [0];
+    for (let i = 1; i < TRAZA.length; i++) acumulado.push(acumulado[i - 1] + metros(TRAZA[i - 1], TRAZA[i]));
+    const escala = HITOS[HITOS.length - 1][0] * 1000 / acumulado[acumulado.length - 1];
+    const tramoHasta = (m) => {
+      const objetivo = m / escala, puntos = [TRAZA[0]];
+      for (let i = 1; i < TRAZA.length; i++) {
+        if (acumulado[i] >= objetivo) {
+          const t = (objetivo - acumulado[i - 1]) / (acumulado[i] - acumulado[i - 1]);
+          puntos.push([TRAZA[i - 1][0] + t * (TRAZA[i][0] - TRAZA[i - 1][0]), TRAZA[i - 1][1] + t * (TRAZA[i][1] - TRAZA[i - 1][1])]);
+          return puntos;
+        }
+        puntos.push(TRAZA[i]);
+      }
+      return puntos;
+    };
+    const ubicar = (kmHito) => tramoHasta(kmHito * 1000).pop();
+
+    const vuelta = document.getElementById("rutaVuelta");
+    const detalle = document.getElementById("rutaDetalle");
+    const lista = document.getElementById("rutaHitos");
+    const botones = document.querySelectorAll("[data-ruta]");
+    let mapa = null, tramo = null, pin = null;
+
+    if (window.L) {
+      mapa = L.map("mapaRuta", { scrollWheelZoom: false, zoomControl: true });
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(mapa);
+      L.polyline(TRAZA, { color: "#FF77C4", weight: 5, opacity: .55 }).addTo(mapa);
+      HITOS.forEach(([k, nombre]) => L.circleMarker(ubicar(k), { radius: 5, color: "#fff", weight: 2, fillColor: "#C71F76", fillOpacity: 1 }).bindTooltip(nombre + ", km " + km(k)).addTo(mapa));
+    } else {
+      document.getElementById("mapaRuta").hidden = true;
+    }
+
+    const elegir = (total) => {
+      const giro = total / 2;
+      const antes = HITOS.reduce((cerca, h) => Math.abs(h[0] - giro) < Math.abs(cerca[0] - giro) ? h : cerca);
+      const diferencia = Math.round((giro - antes[0]) * 1000 / 50) * 50;
+      vuelta.textContent = Math.abs(diferencia) <= 150 ? antes[1] : "unos " + Math.abs(diferencia) + " m " + (diferencia > 0 ? "después de " : "antes de ") + antes[1];
+      const minutos = Math.round(total * RITMO_SOCIAL);
+      const duracion = minutos < 60 ? minutos + " minutos" : Math.floor(minutos / 60) + (minutos < 120 ? " hora" : " horas") + (minutos % 60 ? " y " + (minutos % 60) + " minutos" : "");
+      detalle.textContent = "Vas " + km(giro) + " km de ida y " + km(giro) + " de vuelta. A ritmo social, " + RITMO_SOCIAL + " min/km, son unos " + duracion + ".";
+      lista.innerHTML = "";
+      HITOS.forEach(([k, nombre]) => {
+        const li = document.createElement("li");
+        li.className = nombre === antes[1] ? "giro" : k <= giro ? "dentro" : "fuera";
+        li.innerHTML = "<b>km " + km(k) + "</b><span></span>";
+        li.querySelector("span").textContent = nombre;
+        lista.append(li);
+      });
+      botones.forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.ruta) === total)));
+      if (mapa) {
+        const puntos = tramoHasta(giro * 1000);
+        if (tramo) tramo.remove();
+        if (pin) pin.remove();
+        tramo = L.polyline(puntos, { color: "#E6338F", weight: 6 }).addTo(mapa);
+        pin = L.marker(puntos[puntos.length - 1], { icon: L.divIcon({ className: "", html: '<div class="vuelta-pin"></div>', iconSize: [18, 18] }) }).bindTooltip("Vuelta").addTo(mapa);
+        mapa.fitBounds(tramo.getBounds(), { padding: [30, 30] });
+      }
+    };
+    botones.forEach((b) => b.addEventListener("click", () => elegir(Number(b.dataset.ruta))));
+    elegir(5);
+  })();
 </script>
 </body>
 </html>
