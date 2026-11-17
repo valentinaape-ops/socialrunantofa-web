@@ -88,6 +88,7 @@
   .boton.agotado:hover { background: var(--rosa-suave); transform: none; }
   .dorsal.lleno .cuerpo > :not(.aviso):not(.boton) { opacity: .45; }
   .sello { position: absolute; z-index: 3; top: 44%; left: 50%; width: 250px; aspect-ratio: 1; display: grid; place-content: center; text-align: center; gap: 2px; border-radius: 50%; background: rgba(255, 255, 255, .9); border: 4px solid var(--fucsia); outline: 2px solid var(--fucsia); outline-offset: 5px; color: var(--fucsia-texto); transform: translate(-50%, -50%) rotate(-14deg); box-shadow: 0 14px 30px -16px rgba(199, 31, 118, .7); animation: sellar .6s cubic-bezier(.2, 1.6, .4, 1) .3s both; pointer-events: none; }
+  .dorsal.lleno { cursor: pointer; }
   .sello::before { content: ""; position: absolute; inset: 12px; border-radius: 50%; border: 2px dashed var(--rosa); }
   .sello b { font-family: var(--titulo); font-weight: 800; font-size: 2.5rem; line-height: 1; letter-spacing: .04em; text-transform: uppercase; }
   .sello .mano { font-size: 1.9rem; line-height: .9; color: var(--fucsia); }
@@ -427,5 +428,39 @@
     <p class="credito">Página web por <a class="logo-fv" href="https://www.instagram.com/factorv.agencia/" target="_blank" rel="noopener" aria-label="Factor V en Instagram">Factor<span>V</span></a></p>
   </div>
 </footer>
+<script>
+(function () {
+  var dorsal = document.querySelector('.dorsal.lleno'), sello = dorsal && dorsal.querySelector('.sello');
+  if (!sello) return;
+  var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches, golpeAt = quieto ? 80 : 650, ctx;
+  function golpe() {
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state !== 'running') return;
+      var t = ctx.currentTime;
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.setValueAtTime(150, t);
+      o.frequency.exponentialRampToValueAtTime(45, t + .18);
+      g.gain.setValueAtTime(.0001, t);
+      g.gain.exponentialRampToValueAtTime(.9, t + .005);
+      g.gain.exponentialRampToValueAtTime(.0001, t + .25);
+      o.connect(g).connect(ctx.destination);
+      o.start(t); o.stop(t + .3);
+      var b = ctx.createBuffer(1, ctx.sampleRate * .08, ctx.sampleRate), d = b.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+      var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g2 = ctx.createGain();
+      s.buffer = b; f.type = 'lowpass'; f.frequency.value = 1800; g2.gain.value = .5;
+      s.connect(f).connect(g2).connect(ctx.destination);
+      s.start(t);
+    } catch (e) {}
+  }
+  setTimeout(golpe, golpeAt);
+  dorsal.addEventListener('click', function () {
+    try { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); } catch (e) {}
+    sello.style.animation = 'none'; void sello.offsetWidth; sello.style.animation = '';
+    setTimeout(golpe, golpeAt);
+  });
+})();
+</script>
 </body>
 </html>
