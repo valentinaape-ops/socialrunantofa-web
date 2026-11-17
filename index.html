@@ -84,6 +84,8 @@
   .dorsal dt { font-size: .9rem; color: var(--fucsia-texto); font-weight: 600; }
   .dorsal dd { margin: 0; font-weight: 600; min-width: 0; }
   .dorsal .boton { width: 100%; }
+  .boton.agotado { background: #9a8f94; cursor: default; }
+  .boton.agotado:hover { background: #9a8f94; transform: none; }
   .dorsal .aviso { margin: 0; font-weight: 600; font-size: .95rem; line-height: 1.35; }
   .alfiler { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--rosa); box-shadow: inset 0 2px 2px rgba(58, 24, 48, .35); top: 16px; }
   .alfiler.i { left: 14px; }
@@ -260,7 +262,7 @@
 
       <article class="dorsal" aria-label="Próximo social run">
         <i class="alfiler i"></i><i class="alfiler d"></i>
-        <div class="franja">Social run en el Enjoy · cupos limitados</div>
+        <div class="franja">Social run en el Enjoy · cupos agotados</div>
         <div class="cuerpo">
           <p class="etiqueta">Próximo social run</p>
           <p class="numero">22<span>de noviembre, domingo</span></p>
@@ -269,10 +271,10 @@
             <div><dt>Lugar</dt><dd>Enjoy Antofagasta</dd></div>
             <div><dt>Ruta</dt><dd>5K ida y vuelta</dd></div>
             <div><dt>Incluye</dt><dd>Desayuno buffet, baile entretenido y premios</dd></div>
-            <div><dt>Valor</dt><dd>$13.000, solo 50 cupos</dd></div>
+            <div><dt>Valor</dt><dd>$13.000, 50 cupos agotados</dd></div>
           </dl>
-          <p class="aviso">No te quedes fuera. Escríbenos por inbox para reservar tu cupo.</p>
-          <a class="boton" href="https://ig.me/m/socialrun.antofa" target="_blank" rel="noopener">Reserva tu cupo por inbox</a>
+          <p class="aviso">Gracias por la buena onda, se llenaron los 50 cupos. Síguenos en Instagram para enterarte del próximo social run.</p>
+          <span class="boton agotado" aria-disabled="true">Agotado</span>
         </div>
       </article>
     </div>
