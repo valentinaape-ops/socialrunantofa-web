@@ -84,8 +84,15 @@
   .dorsal dt { font-size: .9rem; color: var(--fucsia-texto); font-weight: 600; }
   .dorsal dd { margin: 0; font-weight: 600; min-width: 0; }
   .dorsal .boton { width: 100%; }
-  .boton.agotado { background: #9a8f94; cursor: default; }
-  .boton.agotado:hover { background: #9a8f94; transform: none; }
+  .boton.agotado { background: var(--rosa-suave); color: var(--fucsia-texto); cursor: default; }
+  .boton.agotado:hover { background: var(--rosa-suave); transform: none; }
+  .dorsal.lleno .cuerpo > :not(.aviso):not(.boton) { opacity: .45; }
+  .sello { position: absolute; z-index: 3; top: 44%; left: 50%; width: 250px; aspect-ratio: 1; display: grid; place-content: center; text-align: center; gap: 2px; border-radius: 50%; background: rgba(255, 255, 255, .9); border: 4px solid var(--fucsia); outline: 2px solid var(--fucsia); outline-offset: 5px; color: var(--fucsia-texto); transform: translate(-50%, -50%) rotate(-14deg); box-shadow: 0 14px 30px -16px rgba(199, 31, 118, .7); animation: sellar .6s cubic-bezier(.2, 1.6, .4, 1) .3s both; pointer-events: none; }
+  .sello::before { content: ""; position: absolute; inset: 12px; border-radius: 50%; border: 2px dashed var(--rosa); }
+  .sello b { font-family: var(--titulo); font-weight: 800; font-size: 2.5rem; line-height: 1; letter-spacing: .04em; text-transform: uppercase; }
+  .sello .mano { font-size: 1.9rem; line-height: .9; color: var(--fucsia); }
+  .sello small { font-weight: 700; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; }
+  @keyframes sellar { from { opacity: 0; transform: translate(-50%, -50%) rotate(-30deg) scale(1.8); } to { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); } }
   .dorsal .aviso { margin: 0; font-weight: 600; font-size: .95rem; line-height: 1.35; }
   .alfiler { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--rosa); box-shadow: inset 0 2px 2px rgba(58, 24, 48, .35); top: 16px; }
   .alfiler.i { left: 14px; }
@@ -228,6 +235,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .boton, .ticket, .preguntas summary::after { transition: none; }
+    .sello { animation: none; }
     .boton:hover, .ticket:hover { transform: none; }
   }
 </style>
@@ -260,9 +268,10 @@
         <p class="bajada">Más de 4.000 mujeres. Casi todos los fines de semana, frente al mar.</p>
       </div>
 
-      <article class="dorsal" aria-label="Próximo social run">
+      <article class="dorsal lleno" aria-label="Próximo social run">
         <i class="alfiler i"></i><i class="alfiler d"></i>
-        <div class="franja">Social run en el Enjoy · cupos agotados</div>
+        <div class="sello" aria-hidden="true"><span class="mano">gracias</span><b>Agotado</b><small>50 de 50 cupos</small></div>
+        <div class="franja">Social run en el Enjoy · agotado</div>
         <div class="cuerpo">
           <p class="etiqueta">Próximo social run</p>
           <p class="numero">22<span>de noviembre, domingo</span></p>
